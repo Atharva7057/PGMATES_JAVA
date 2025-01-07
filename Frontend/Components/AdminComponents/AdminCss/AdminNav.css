@@ -1,0 +1,24 @@
+#admin-nav {
+    background-color: #0d6efd;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  #nav-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+  #nav-links a {
+    color: white; /* White text color */
+    text-decoration: none; /* Remove underline */
+    font-size: 16px; /* Adjust font size */
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  #nav-links a:hover {
+    color: #ffc107; /* Highlight color on hover (yellow) */
+  }
+  

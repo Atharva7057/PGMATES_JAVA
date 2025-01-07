@@ -1,0 +1,115 @@
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  } */
+
+  /* Main Content Section */
+  .main-content {
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 0px; /* Adds padding to ensure content doesn't touch edges on small screens */
+  }
+  
+  /* Image Container */
+  .image-container {
+    position: relative;
+    width: 100%;
+    height: 86vh; /* Adjust the height as needed */
+  }
+  
+  .background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(50%); /* Fading the image */
+  }
+  
+  .title-section {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+  }
+  
+  .title-section h1,
+  .title-section p {
+    margin: 0;  /* Remove margin for h1 and p */
+    padding: 0; /* Optional: Remove padding if you want tighter spacing */
+  }
+  
+  /* Footer Styles */
+  .footer {
+    background-color: #1770c9;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    /* position: relative; */
+  }
+  
+  .footer p {
+    margin: 0;
+    font-size: 1rem;
+  }
+  
+  /* Media Queries for Responsiveness */
+  
+  /* Small Screens (mobile phones) */
+  @media (max-width: 600px) {
+    .navbar-list {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .navbar-list li {
+      margin: 10px 0;
+    }
+  
+    .image-container {
+      height: 50vh;  /* Reduce image height for mobile */
+    }
+  
+    .title-section h1,
+    .title-section p {
+      font-size: 1rem; /* Smaller font size for mobile */
+    }
+  }
+  
+  /* Medium Screens (tablets and smaller desktops) */
+  @media (max-width: 900px) {
+    .navbar-list {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .navbar-list li {
+      margin: 10px 0;
+    }
+  
+    .image-container {
+      height: 55vh;
+    }
+  
+    .title-section h1,
+    .title-section p {
+      font-size: 1.25rem; /* Adjust text size for medium screens */
+    }
+  }
+  
+  /* Large Screens (large desktops) */
+  @media (min-width: 1200px) {
+    .navbar-list {
+      flex-direction: row;
+      justify-content: center;
+    }
+  
+    .title-section h1,
+    .title-section p {
+      font-size: 1.5rem; /* Adjust text size for large screens */
+    }
+  }
+  

@@ -1,0 +1,132 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center horizontally */
+    
+    align-items: center; /* Center vertically */
+    /* height: 50vh; Full viewport height */
+    /* background-color: #000000; Optional background color */
+}
+
+#title-section {
+    text-align: center; /* Center text within the title section */
+    background-color:#438ef6;
+    width: 100%;
+}
+
+#title h1 {
+    margin: 0; /* Remove default margin */
+    font-size: 3rem; /* Adjust size as needed */
+    letter-spacing: 6px;
+    font-family:cursive;
+    color: white;
+    /* font-family:Georgia, 'Times New Roman', Times, serif ; */
+    padding-top: 15px;
+}
+
+#subtitle  {
+    margin: 0; /* Remove default margin */
+    font-size: 1.2rem; /* Adjust size as needed */
+    /* padding: 5px; */
+    font-family:  cursive;
+    color: rgb(255, 255, 255);
+}
+
+
+/* General styles */
+#login-section {
+    max-width: fit-content;
+    margin: 0 auto; /* Center the section */
+    padding: 20px;
+    text-align: center;
+    
+}
+
+/* Grid container */
+
+#login-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns by default */
+    gap: 25px; /* Space between grid items */
+}
+
+/* Card styling */
+.login-card {
+    background: #ffffff;
+    border: 1px solid #fdfeff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 1, 4, 0.5);
+    width: 250px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card:hover {
+    transform: scale(1.05);
+    /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); */
+    /* border: 1px solid red; */
+    box-shadow:1px 1px 10px  #007bff;
+}
+
+/* Text styling */
+.login-card p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family:cursive;
+    margin-bottom: 15px;
+   
+}
+
+/* Button container */
+.btn-div {
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn-div button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-div button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    /* Stack the cards in a single column for smaller screens */
+    #login-section {
+        grid-template-columns: 1fr; /* 1 column layout */
+    }
+}
+
+@media (max-width: 600px) {
+    #login-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .btn-div button {
+        padding: 8px 16px;
+    }
+}
+
+#outer-login-container{
+    margin-top: 50px;
+    box-shadow: 1px 1px 15px;
+}
+#login-card-title{
+    text-align: center;
+    /* letter-spacing: 1.6px; */
+}
+#login-card-title h2{
+   font-family:cursive;
+}

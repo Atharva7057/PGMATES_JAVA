@@ -1,0 +1,90 @@
+package com.pgmates.entity;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Getter
+@NoArgsConstructor
+@Setter
+
+public class Property {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int propertyId;
+    
+    @Column(nullable = false,length = 500)
+    private String location;
+    
+    @Column(nullable = false)
+    private double rent;
+    
+    @Column(nullable = false)
+    private double deposit;
+    
+    private String type;
+    
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    
+    private Owner owner;
+    
+    private String image;
+    
+    @Column(nullable = false)
+    private int capacity;
+    
+    @Column(nullable = false,length = 500)
+    private String amenities;
+    
+    @Column(nullable = false,length = 500)
+    private String nearByPlaces;
+    
+    @Column(nullable = false)
+    private String forGender;
+    
+    @Column(nullable = false)
+    private String furnishType;
+    
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
+    private List<Appointments> Appointments;
+    
+    @OneToMany( cascade = CascadeType.ALL)
+    @JoinColumn(name = "property_id")
+    private List<Reviews> reviews;
+    
+    
+    private boolean isavailable;
+    
+	public Property(int propertyId, String location, double rent, double deposit, Owner owner, String image,
+			int capacity, String amenities, String nearByPlaces, String forGender, String furnishType,
+			List<Appointments> appointments,List<Reviews> reviews) {
+		super();
+		this.propertyId = propertyId;
+		this.location = location;
+		this.rent = rent;
+		this.deposit = deposit;
+		this.owner = owner;
+		this.image = image;
+		this.capacity = capacity;
+		this.amenities = amenities;
+		this.nearByPlaces = nearByPlaces;
+		this.forGender = forGender;
+		this.furnishType = furnishType;
+		Appointments = appointments;
+		this.reviews =  reviews;
+	}
+    
+    
+}

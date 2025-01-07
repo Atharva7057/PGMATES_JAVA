@@ -1,0 +1,87 @@
+/* Custom CSS for full-page layout */
+/* body {
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+} */
+
+.container1 {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 30px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+  }
+  
+  .card1 {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+  
+  .card-body1 {
+    display: flex;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  .card-details {
+    width: 70%;
+    display: block;
+  }
+  
+  .card-details h5 {
+    font-size: 18px;
+  }
+  
+  .card-details p {
+    margin: 5px 0;
+  }
+  
+  .card-details-n-img {
+    display: flex;
+    align-items: center;
+  }
+  
+  .img-box img{
+    border: 1px solid black;
+    margin-left: 20px;
+    width: 300px;
+    height: 150px;
+    /* object-fit: cover; */
+    margin: auto;
+  }
+  
+  .btn-group {
+    margin-top: 20px;
+  }
+  
+  .btn1 {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .btn:hover {
+    opacity: 0.8;
+  }
+  

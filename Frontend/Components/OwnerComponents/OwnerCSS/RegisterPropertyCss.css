@@ -1,0 +1,14 @@
+.settings-section .btn-1 {
+    padding: 12px 20px;
+    margin-top: 20px;
+    font-size: 14px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    min-width: 140px;
+    text-align: center;
+    margin: 5px;
+}

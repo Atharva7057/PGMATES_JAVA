@@ -1,0 +1,16 @@
+.btnBox{
+        /* margin-left: 37%; */
+        padding: 20px;
+        /* margin: auto; */
+        /* border: 1px solid black; */
+}
+.innerBtnBox{
+        width: 100%;
+        /* border: 1px solid black; */
+        margin: auto;
+        padding-left: 40%;
+        display: inline-flex;
+}
+/* .btn1{
+
+} */

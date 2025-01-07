@@ -1,0 +1,147 @@
+package com.pgmates.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.pgmates.dao.PropertyDao;
+import com.pgmates.dao.ReviewDao;
+import com.pgmates.dao.UserDao;
+import com.pgmates.dto.ApiResponse;
+import com.pgmates.dto.AppointmentsDto;
+import com.pgmates.dto.OwnerDto;
+import com.pgmates.dto.PropertyDetailsDto;
+import com.pgmates.dto.PropertyDto;
+import com.pgmates.dto.ReviewInfo;
+import com.pgmates.dto.ReviewsDto;
+import com.pgmates.dto.UserDto;
+import com.pgmates.dto.UserDtoForReview;
+import com.pgmates.entity.Property;
+import com.pgmates.entity.Reviews;
+import com.pgmates.entity.User;
+import com.pgmates.exceptions.ResourceNotFoundException;
+
+import jakarta.transaction.Transactional;
+@Service
+@Transactional
+public class UserServices implements UserServicesIF {
+	@Autowired
+	UserDao userdao;
+	
+	@Autowired
+	ModelMapper mapper;
+	
+	@Autowired
+	PropertyDao property_dao;
+	
+	@Autowired
+	ReviewDao review_dao;
+	
+	public ApiResponse registerUser(UserDto new_user) {
+		 User user = mapper.map(new_user, User.class); 
+		 if(userdao.existsByEmail(user.getEmail())) {
+			 return new ApiResponse("User Already Exists!");
+		 }
+		 userdao.save(user);
+		 return new ApiResponse("User Registered Successfuly");
+	}
+	
+	
+	public UserDto userLogin(String email,String password) {
+		Optional<User> useropt = userdao.findByEmailAndPassword(email, password);
+		User user = useropt.orElseThrow(()-> new ResourceNotFoundException("Invalid email or password"));
+		UserDto udto = mapper.map(user, UserDto.class);
+		return udto;
+	}
+
+
+	@Override
+	public List<PropertyDto> getAllProperties() {
+		List<Property> properties = property_dao.findAll();
+	    List<PropertyDto> propertyDtos = new ArrayList<>();
+
+	    for (Property property : properties) {
+	        PropertyDto propertyDto = mapper.map(property, PropertyDto.class);
+	        
+	        // Manually map Owner to OwnerDto
+	        OwnerDto ownerDto = mapper.map(property.getOwner(), OwnerDto.class);
+	        propertyDto.setOwner(ownerDto);
+
+	        propertyDtos.add(propertyDto);
+	    }
+	    
+	    return propertyDtos;
+	}
+
+
+	@Override
+	public PropertyDetailsDto getPropertyWithAllDetails(int pid) {
+		  // Fetch property by ID
+	    Optional<Property> propertyOpt = property_dao.findById(pid);
+
+	    // If property is not found, handle the exception
+	    if (propertyOpt.isEmpty()) {
+	        throw new ResourceNotFoundException("Property not found for ID: " + pid);
+	    }
+
+	    // Get the Property entity
+	    Property property = propertyOpt.get();
+
+	    // Map Property entity to PropertyDetailsDto
+	    PropertyDetailsDto propertyDetails = mapper.map(property, PropertyDetailsDto.class);
+
+	    // Map Owner entity to OwnerDto
+	    OwnerDto ownerDto = mapper.map(property.getOwner(), OwnerDto.class);
+	    propertyDetails.setOwner(ownerDto);
+	    
+	    
+	    List<ReviewsDto> reviewsDtoList = new ArrayList<>();
+	 // Iterate over each review and map it to ReviewsDto
+	    property.getReviews().forEach(review -> {
+	        // Map User entity to UserDtoForReview
+	        UserDto userDto = mapper.map(review.getUser(), UserDto.class);
+
+	        // Create a new ReviewsDto and add it to the list
+	        ReviewsDto reviewDto = new ReviewsDto(
+	            review.getReviewId(),
+	            userDto,
+	            review.getComment(),
+	            review.getRatings()
+	        );
+	        reviewsDtoList.add(reviewDto);
+	    });
+
+	    // Set the reviewsDtoList to the propertyDetails DTO
+	    propertyDetails.setReviews(reviewsDtoList);
+	    
+	    
+	    List<AppointmentsDto> appointmentsDtoList = new ArrayList<>();
+	    property.getAppointments().forEach(appointment -> {
+	        AppointmentsDto appointmentDto = mapper.map(appointment, AppointmentsDto.class);
+	        appointmentsDtoList.add(appointmentDto);
+	    });
+	    propertyDetails.setAppointments(appointmentsDtoList);
+	    
+	    
+		return propertyDetails;
+	}
+	
+public ApiResponse addReview(ReviewInfo reviewdata) {
+	
+	User user = userdao.findById(reviewdata.getUserid()).orElseThrow(()-> new ResourceNotFoundException("No user Found"));
+	Property property = property_dao.findById(reviewdata.getPropertyid()).orElseThrow(()-> new ResourceNotFoundException("No property Found"));
+	
+	Reviews review = mapper.map(reviewdata, Reviews.class);
+	review.setUser(user);
+    review.setProperty(property);
+    property.getReviews().add(review);
+    review_dao.save(review);
+    return new ApiResponse("Review Added successfully");
+}
+
+	
+}

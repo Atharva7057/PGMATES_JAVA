@@ -1,0 +1,55 @@
+.main {
+        width: 100%;
+        /* display: flex; */
+        /* justify-content: center; */
+    }
+    
+    .outerBox {
+        width: 100%;
+        max-width: 1200px; /* Max width to keep layout consistent on larger screens */
+        margin-top: 10px;
+        margin: auto;
+        padding: 30px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+    
+    .box1, .box2 {
+        width: 100%; /* Full width on small screens */
+        padding: 15px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        margin-bottom: 15px; /* Spacing between the boxes */
+    }
+    
+    /* For larger screens, side-by-side layout */
+    @media (min-width: 768px) {
+        .box1, .box2 {
+            width: 49%; /* Side-by-side on medium screens and up */
+            margin-right: 2%; /* Space between the boxes */
+        }
+    
+        .box2 {
+            margin-right: 0; /* Remove margin for the last box */
+        }
+    }
+    
+    /* Button section */
+    .btnBox {
+        /* width: 100%; */
+        text-align: center; /* Center buttons */
+        padding: 10px 0; /* Space between content and buttons */
+
+    }
+
+    .col-sm-6 {
+        flex: 1; /* Make columns flexible */
+        padding: 10px; /* Space between buttons */
+    }
+    
+    /* Stack buttons on smaller screens */
+    @media (max-width: 576px) {
+        .col-sm-6 {
+            flex-basis: 100%; /* Stack buttons on small screens */
+            margin-bottom: 10px; /* Space between buttons on small screens */
+        }
+    }
+    

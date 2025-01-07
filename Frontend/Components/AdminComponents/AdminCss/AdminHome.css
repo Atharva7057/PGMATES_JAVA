@@ -1,0 +1,81 @@
+#admin-home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fcfcfc;
+    min-height: 70vh;
+    padding: 20px;
+    
+  }
+  
+  #welcome-container {
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    max-width: 900px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    padding: 40px;
+    text-align: center;
+    
+    /* height: 250px; */
+  }
+  
+  #welcome-container h1 {
+    font-size: 2.8rem;
+    color: #0d6efd;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  
+  #welcome-container p {
+    font-size: 1.1rem;
+    color: #495057;
+    margin-bottom: 40px;
+    
+  }
+  
+  #task-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    /* border: 1px solid green; */
+  }
+  
+  .task-card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    text-align: center;
+    transition: transform 0.3s ease;
+    height: 150px;
+  }
+  
+  .task-card h3 {
+    color: #0d6efd;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+  }
+  
+  .task-card p {
+    color: #7b838a;
+    font-size: 1rem;
+  }
+  
+  .task-card:hover {
+    transform: translateY(-10px);
+    transition: 0.5s;
+    box-shadow: 1px 1px 10px #0d6efd;
+  }
+  
+  @media (max-width: 768px) {
+    #task-cards {
+      flex-direction: column;
+    }
+  
+    .task-card {
+      width: 100%;
+    }
+  }
+  

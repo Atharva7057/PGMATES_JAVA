@@ -1,0 +1,116 @@
+#dashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f7fa;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  #dashboard-container {
+    background-color: white;
+    width: 100%;
+    max-width: 1000px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.9);
+    padding: 40px;
+    text-align: center;
+  }
+  
+  #dashboard-container h1 {
+    font-size: 2.8rem;
+    color: #0d6efd;
+    font-weight: 700;
+    margin-bottom: 30px;
+  }
+  
+  #dashboard-stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+  
+  .stat-card {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .stat-card h3 {
+    color: #0d6efd;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+  }
+  
+  .stat-card p {
+    color: #495057;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  #dashboard-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .action-card {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .action-card h3 {
+    color: #0d6efd;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+  }
+  
+  .action-card p {
+    color: #6c757d;
+    font-size: 1rem;
+  }
+  
+  .action-card button {
+    padding: 10px 20px;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .action-card button:hover {
+    background-color: #0056b3;
+  }
+  
+  .action-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  @media (max-width: 768px) {
+    #dashboard-stats,
+    #dashboard-actions {
+      flex-direction: column;
+    }
+  
+    .stat-card,
+    .action-card {
+      width: 100%;
+    }
+  }
+  

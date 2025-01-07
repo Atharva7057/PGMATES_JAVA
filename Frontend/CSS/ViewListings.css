@@ -1,0 +1,33 @@
+
+.search-bar {
+    max-width: 500px;
+    margin: 20px;
+    margin-left:50px;
+    /* border: 1px solid black; */
+}
+
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px; 
+    margin:  auto 50px;
+    
+   
+}
+
+
+.card-container{
+    box-shadow: 1px 1px 10px;
+    width: fit-content;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+
+
+.card-img {
+    height: 200px;
+    width: 300px;
+    object-fit: cover;
+}
+
+

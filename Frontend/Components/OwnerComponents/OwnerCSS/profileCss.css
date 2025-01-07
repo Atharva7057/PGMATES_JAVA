@@ -1,0 +1,245 @@
+/* Outer container for the profile dashboard */
+.profile-container {
+    margin-top: 5vh;
+    padding: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Header styles */
+#title {
+    text-align: center;
+    color: #333;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+/* Profile section (owner info and picture) */
+.profile-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;  /* Center content */
+    margin-bottom: 40px;
+    gap: 40px;
+}
+
+/* Profile information container */
+.profile-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* Center content */
+    flex: 1 1 45%;
+    max-width: 100%;
+}
+
+/* Profile picture styling */
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+    border: 3px solid #3498db;
+}
+
+/* Owner details */
+.owner-details {
+    max-width: 60%;
+    flex: 1;
+    text-align: left;
+}
+
+/* Owner name heading */
+.owner-details h2 {
+    color: #2c3e50;
+    font-size: 28px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+/* Owner details paragraph */
+.owner-details p {
+    font-size: 16px;
+    color: #555;
+    margin: 8px 0;
+    line-height: 1.6;
+}
+
+/* Property Listings Section */
+.property-listings-section {
+    margin-bottom: 40px;
+}
+
+.property-listings-section h2 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* Individual property item */
+.property-item {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Property item heading */
+.property-item h3 {
+    font-size: 22px;
+    color: #34495e;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Property item description */
+.property-item p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Settings section for buttons */
+.settings-section {
+    display: flex;
+    justify-content: center; /* Center buttons */
+    gap: 20px;
+    margin-top: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+/* Button styling in settings section */
+.settings-section .btn {
+    padding: 12px 20px;
+    font-size: 14px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    min-width: 140px;
+    text-align: center;
+    margin: 5px;
+}
+
+/* Button hover effect */
+.settings-section .btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Profile container responsiveness */
+@media (max-width: 768px) {
+    /* Profile Section */
+    .profile-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Profile Info */
+    .profile-info {
+        justify-content: center;
+        text-align: center;
+    }
+
+    /* Owner Details */
+    .owner-details {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    /* Profile Picture */
+    .profile-pic {
+        width: 120px;
+        height: 120px;
+    }
+
+    /* Settings Section */
+    .settings-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .settings-section .btn-1 {
+        padding: 12px 20px;
+        margin-top: 20px;
+        font-size: 14px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        min-width: 140px;
+        text-align: center;
+        margin: 5px;
+    }
+
+    /* Button styling in settings section */
+.settings-section .btn {
+    padding: 10px 20px;  /* Adjust padding for a smaller button */
+    font-size: 14px;      /* Normal font size */
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    min-width: 140px;     /* Keep a minimum width */
+    text-align: center;
+    margin: 5px;
+    max-width: 180px;     /* Button width limit */
+    width: auto;          /* Button size will adjust based on content */
+}
+    /* Property Item */
+    .property-item {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+/* Profile container responsiveness */
+@media (max-width: 768px) {
+    /* Button styling */
+    .settings-section .btn {
+        font-size: 12px; /* Smaller font size on tablet */
+        padding: 8px 16px; /* Reduce padding for smaller buttons */
+        max-width: 150px;  /* Button width limit */
+        min-width: 120px;  /* Keep button compact */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Button styling for small screens */
+    .settings-section .btn {
+        font-size: 10px; /* Even smaller font size for mobile */
+        padding: 6px 12px; /* Smaller padding for mobile */
+        max-width: 140px;  /* Button width further restricted */
+        min-width: 100px;  /* Compact button size */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 28px; /* Smaller font size for very small screens */
+    }
+
+    /* Smaller Buttons */
+    .settings-section .btn {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+
+    .profile-pic {
+        width: 100px;
+        height: 100px;
+    }
+}
