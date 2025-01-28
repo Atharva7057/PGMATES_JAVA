@@ -4,7 +4,7 @@ import AdminHome from '../Components/AdminComponents/AdminHome.jsx';
 import AdminNav from '../Components/AdminComponents/AdminNav.jsx';
 import AdminDashboard from '../Components/AdminComponents/AdminDashboard.jsx';
 import PropertiesList from '../Components/AdminComponents/PropertiesList.jsx';
-
+// This is Admin ROutes
 const AdminLayout = () => (
   <>
     <AdminNav />

@@ -944,3 +944,8 @@
 2025-01-07 16:13:05,149 [Worker-4: Launching PGMates - DemoApplication] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
 2025-01-07 16:13:05,170 [Worker-4: Launching PGMates - DemoApplication] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
 2025-01-07 16:13:05,177 [Worker-4: Launching PGMates - DemoApplication] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\Cdac\Final project\PGMATES_FE\Backend\PGMates\src\test\resources
+2025-01-23 23:41:57,837 [Worker-4: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2025-01-23 23:42:33,982 [Worker-14: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-01-23 23:42:34,006 [Worker-14: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-01-23 23:42:34,013 [Worker-14: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\Cdac\Final project\PGMATES_FE\Backend\PGMates\src\test\resources
+2025-01-27 14:47:53,433 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
