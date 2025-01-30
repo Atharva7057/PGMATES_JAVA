@@ -4,6 +4,7 @@ import Footer from '../Footer';
 console.log("on admin ");
 const adminName = "Atharva Patil"
 function AdminHome() {
+
   return (
     <>
     <div id="admin-home">

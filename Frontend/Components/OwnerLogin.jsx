@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { verifyOwner } from '../Services/authenticate';
+import { verify } from '../Services/authenticate';
 function OwnerLogin() {
   const queryParameters = new URLSearchParams(window.location.search)
   var status = queryParameters.get("isLogin");
@@ -12,7 +12,7 @@ function OwnerLogin() {
   const navigate = useNavigate();
 
   function handleOnClick() {
-    const isvalid = verifyOwner(logindata.LoginEmail, logindata.LoginPassword);
+    const isvalid = verify(logindata.LoginEmail, logindata.LoginPassword);
     if (isvalid) {
       navigate('/owner/owner-home');
     }else {

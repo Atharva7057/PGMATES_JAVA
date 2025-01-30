@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { verifyAdmin } from "../Services/authenticate";
+import { verify } from "../Services/authenticate";
 
 function AdminLogin() {
   const queryParameters = new URLSearchParams(window.location.search);
@@ -21,7 +21,7 @@ function AdminLogin() {
   const navigate = useNavigate();
 
   function handleOnClick() {
-    const isValid = verifyAdmin(logindata.LoginEmail, logindata.LoginPassword);
+    const isValid = verify(logindata.LoginEmail, logindata.LoginPassword);
     if (isValid) {
       navigate("/admin/admin-home");
     } else {

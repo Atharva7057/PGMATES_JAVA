@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import '../CSS/UserLogin.css';
+import '../CSS/Login.css';
 import { verify } from '../Services/authenticate.js';
 import { useNavigate } from 'react-router-dom';
 import Toast from 'react-bootstrap/Toast';
 
-function UserLogin() {
+function Login() {
 
   const queryParameters = new URLSearchParams(window.location.search);
   const status = queryParameters.get("isLogin") === "true";
@@ -26,7 +26,20 @@ function UserLogin() {
   function handleOnClick() {
     const isvalid = verify(logindata.LoginEmail, logindata.LoginPassword);
     if (isvalid) {
-      navigate('/user/user-home');
+      console.log("logindata.LoginEmail",logindata.LoginEmail)
+      console.log(" logindata.LoginPassword", logindata.LoginPassword)
+      if(logindata.LoginEmail === 'pranjal@gmail' && logindata.LoginPassword ==="1234"){
+        console.log("hey hrsha chirmade")
+        navigate('/owner/owner-home');
+      }
+      else if(logindata.LoginEmail === 'atharva@gmail' &&logindata.LoginPassword ==="1234"){
+        navigate('/user/user-home');
+      }
+      else if(logindata.LoginEmail === 'parthavi@gmail' &&logindata.LoginPassword ==="1234"){
+        console.log("admin")
+        navigate('/admin/admin-home');
+      }
+      
     }else {
       alert("Invalid email or password");
     }
@@ -55,7 +68,7 @@ function UserLogin() {
 
           {isLogin ? (
             <div className='form'>
-              <h2>User Login Form</h2>
+              <h2>Login Form</h2>
               <input type='email' placeholder='Email' name='LoginEmail' value={logindata.LoginEmail} onChange={handleonchange} />
               <input type='password' placeholder='Password' name='LoginPassword' value={logindata.LoginPassword} onChange={handleonchange} />
               <button onClick={handleOnClick}>Login</button>
@@ -75,6 +88,13 @@ function UserLogin() {
                   Female
                   <input type="radio" value="female" name="gender" onChange={handlesignup} />
                 </label>
+                <div>
+                <select name="role" value={signupData.role || ""} onChange={handlesignup}>
+                <option value="" disabled>Select Role</option>
+                <option value="user">User</option>
+                <option value="owner">Owner</option>
+              </select>
+              </div>
               </div>
               <input type='password' placeholder='Password' name='password' onChange={handlesignup} />
               <input type='password' placeholder='Confirm Password' name='confirmPassword' onChange={handlesignup} />
@@ -87,4 +107,4 @@ function UserLogin() {
   );
 }
 
-export default UserLogin;
+export default Login;
