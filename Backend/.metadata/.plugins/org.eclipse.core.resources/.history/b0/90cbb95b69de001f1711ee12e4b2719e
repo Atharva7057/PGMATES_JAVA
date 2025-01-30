@@ -1,0 +1,5 @@
+package com.pgmates.entity;
+
+public class Address {
+
+}

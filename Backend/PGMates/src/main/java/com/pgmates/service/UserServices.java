@@ -13,13 +13,11 @@ import com.pgmates.dao.ReviewDao;
 import com.pgmates.dao.UserDao;
 import com.pgmates.dto.ApiResponse;
 import com.pgmates.dto.AppointmentsDto;
-import com.pgmates.dto.OwnerDto;
 import com.pgmates.dto.PropertyDetailsDto;
 import com.pgmates.dto.PropertyDto;
 import com.pgmates.dto.ReviewInfo;
 import com.pgmates.dto.ReviewsDto;
 import com.pgmates.dto.UserDto;
-import com.pgmates.dto.UserDtoForReview;
 import com.pgmates.entity.Property;
 import com.pgmates.entity.Reviews;
 import com.pgmates.entity.User;
@@ -41,23 +39,6 @@ public class UserServices implements UserServicesIF {
 	@Autowired
 	ReviewDao review_dao;
 	
-	public ApiResponse registerUser(UserDto new_user) {
-		 User user = mapper.map(new_user, User.class); 
-		 if(userdao.existsByEmail(user.getEmail())) {
-			 return new ApiResponse("User Already Exists!");
-		 }
-		 userdao.save(user);
-		 return new ApiResponse("User Registered Successfuly");
-	}
-	
-	
-	public UserDto userLogin(String email,String password) {
-		Optional<User> useropt = userdao.findByEmailAndPassword(email, password);
-		User user = useropt.orElseThrow(()-> new ResourceNotFoundException("Invalid email or password"));
-		UserDto udto = mapper.map(user, UserDto.class);
-		return udto;
-	}
-
 
 	@Override
 	public List<PropertyDto> getAllProperties() {
@@ -68,8 +49,8 @@ public class UserServices implements UserServicesIF {
 	        PropertyDto propertyDto = mapper.map(property, PropertyDto.class);
 	        
 	        // Manually map Owner to OwnerDto
-	        OwnerDto ownerDto = mapper.map(property.getOwner(), OwnerDto.class);
-	        propertyDto.setOwner(ownerDto);
+	        UserDto userdto = mapper.map(property.getOwner(), UserDto.class);
+	        propertyDto.setOwner(userdto);
 
 	        propertyDtos.add(propertyDto);
 	    }
@@ -95,8 +76,8 @@ public class UserServices implements UserServicesIF {
 	    PropertyDetailsDto propertyDetails = mapper.map(property, PropertyDetailsDto.class);
 
 	    // Map Owner entity to OwnerDto
-	    OwnerDto ownerDto = mapper.map(property.getOwner(), OwnerDto.class);
-	    propertyDetails.setOwner(ownerDto);
+	    UserDto userdto = mapper.map(property.getOwner(), UserDto.class);
+	    propertyDetails.setOwner(userdto);
 	    
 	    
 	    List<ReviewsDto> reviewsDtoList = new ArrayList<>();

@@ -26,18 +26,7 @@ public class UserController {
 	@Autowired
 	UserServices user_service;
 	
-	@PostMapping("/register-user")
-	public ResponseEntity<?> registerUser(@RequestBody UserDto new_user){
-		return ResponseEntity.status(HttpStatus.OK).body(user_service.registerUser(new_user));
-	}
 	
-
-	@PostMapping("/login")
-	public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest credentials) {
-	    UserDto user = user_service.userLogin(credentials.getEmail(),credentials.getPassword() );
-	    return ResponseEntity.ok(user);
-	   
-	}
 	@GetMapping("/getAllProperties")
 	 public List<PropertyDto> getAllProperties() {
         return user_service.getAllProperties();

@@ -18,7 +18,8 @@ public class PropertyDetailsDto {
 	    private String nearByPlaces;
 	    private String forGender;
 	    private String furnishType;
-	    private OwnerDto owner;
+	    private UserDto owner;
+	    private AddressDto address;
 	    private List<ReviewsDto> reviews;
 	    private List<AppointmentsDto> Appointments;
 	    

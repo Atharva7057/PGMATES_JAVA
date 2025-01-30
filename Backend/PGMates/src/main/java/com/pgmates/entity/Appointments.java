@@ -30,7 +30,7 @@ public class Appointments {
 
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
-    private Owner owner; // The owner of the property
+    private User owner; // The owner of the property
     
     @Column(nullable = false)
     private String date;
@@ -41,7 +41,7 @@ public class Appointments {
     private boolean isBooked; // Indicates if the slot is booked
 
     // Constructor
-    public Appointments(int apptId, Property property, User user, Owner owner, String date, String time, String endTime,
+    public Appointments(int apptId, Property property, User user, User owner, String date, String time, String endTime,
                         boolean isBooked) {
         super();
         this.apptId = apptId;

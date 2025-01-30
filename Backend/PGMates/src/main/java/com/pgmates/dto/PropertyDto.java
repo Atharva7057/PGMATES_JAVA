@@ -11,11 +11,12 @@ public class PropertyDto {
 	    private double rent;  
 	    private double deposit;
 	    private String type;
-	    private OwnerDto owner;
+	    private UserDto owner;
 	    private String image;
 	    private int capacity;
 	    private String amenities;
 	    private String nearByPlaces;
 	    private String forGender;
 	    private String furnishType;
+	    private AddressDto address;
 }

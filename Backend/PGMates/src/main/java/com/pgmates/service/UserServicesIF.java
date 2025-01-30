@@ -9,8 +9,7 @@ import com.pgmates.dto.ReviewInfo;
 import com.pgmates.dto.UserDto;
 
 public interface UserServicesIF {
-	public ApiResponse registerUser(UserDto new_user);
-	public UserDto userLogin(String email,String password);
+	
 	public List<PropertyDto> getAllProperties();
 	public PropertyDetailsDto getPropertyWithAllDetails(int pid);
 	public ApiResponse addReview(ReviewInfo reviewdata);

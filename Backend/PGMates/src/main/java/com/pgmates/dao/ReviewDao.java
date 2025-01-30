@@ -9,5 +9,4 @@ import com.pgmates.entity.User;
 
 public interface ReviewDao extends JpaRepository<Reviews, Integer> {
 	
-
 }

@@ -2,7 +2,7 @@ package com.pgmates.dto;
 
 import com.pgmates.entity.Property;
 import com.pgmates.entity.User;
-import com.pgmates.entity.Owner;
+//import com.pgmates.entity.Owner;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +22,7 @@ public class AppointmentsDto {
     private boolean isBooked;
 
     // Constructor
-    public AppointmentsDto(int apptId, PropertyDto property, UserDto user, OwnerDto owner, String date, String time, String endTime, boolean isBooked) {
+    public AppointmentsDto(int apptId, PropertyDto property, UserDto user, UserDto owner, String date, String time, String endTime, boolean isBooked) {
         this.apptId = apptId;
 //        this.property = property;
 //        this.user = user;

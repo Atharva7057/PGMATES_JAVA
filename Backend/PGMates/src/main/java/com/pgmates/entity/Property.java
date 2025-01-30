@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +28,10 @@ public class Property {
     @Column(nullable = false,length = 500)
     private String location;
     
+    @OneToOne
+    @JoinColumn(name = "address")
+    private Address address;
+    
     @Column(nullable = false)
     private double rent;
     
@@ -37,8 +42,7 @@ public class Property {
     
     @ManyToOne
     @JoinColumn(name = "owner_id")
-    
-    private Owner owner;
+    private User owner;
     
     private String image;
     
@@ -67,7 +71,7 @@ public class Property {
     
     private boolean isavailable;
     
-	public Property(int propertyId, String location, double rent, double deposit, Owner owner, String image,
+	public Property(int propertyId, String location, double rent, double deposit, User owner, String image,
 			int capacity, String amenities, String nearByPlaces, String forGender, String furnishType,
 			List<Appointments> appointments,List<Reviews> reviews) {
 		super();
