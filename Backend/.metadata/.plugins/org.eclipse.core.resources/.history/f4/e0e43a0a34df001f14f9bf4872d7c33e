@@ -1,0 +1,9 @@
+package com.pgmates.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.pgmates.entity.Appointments;
+
+public class AppointmentsDao implements JpaRepository<Appointments,Integer>{
+
+}

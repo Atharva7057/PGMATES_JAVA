@@ -1,0 +1,7 @@
+package com.pgmates.service;
+
+import com.pgmates.dto.AddAppointmentSlotDto;
+
+public interface OwnerServicesIF {
+	public boolean addAppointmentSlot(AddAppointmentSlotDto appointmentSlotDto);
+}

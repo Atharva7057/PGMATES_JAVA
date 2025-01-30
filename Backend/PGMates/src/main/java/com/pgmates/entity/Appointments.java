@@ -25,7 +25,7 @@ public class Appointments {
     private Property property; // The property associated with this appointment
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     private User user; // The user who booked the appointment
 
     @ManyToOne

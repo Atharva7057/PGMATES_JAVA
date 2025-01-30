@@ -1,0 +1,21 @@
+package com.pgmates.service;
+
+import org.springframework.stereotype.Service;
+
+import com.pgmates.dto.AddAppointmentSlotDto;
+
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
+public class OwnerServices implements OwnerServicesIF {
+
+	@Override
+	public boolean addAppointmentSlot(AddAppointmentSlotDto appointmentSlotDto) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	
+
+}

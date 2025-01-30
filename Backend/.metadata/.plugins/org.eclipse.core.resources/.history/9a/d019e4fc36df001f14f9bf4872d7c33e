@@ -1,0 +1,44 @@
+package com.pgmates.service;
+
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.pgmates.dao.AppointmentsDao;
+import com.pgmates.dao.PropertyDao;
+import com.pgmates.dto.AddAppointmentSlotDto;
+import com.pgmates.entity.Appointments;
+import com.pgmates.entity.Property;
+
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
+public class OwnerServices implements OwnerServicesIF {
+	@Autowired
+	AppointmentsDao appointmentDao;
+	@Autowired
+	ModelMapper mapper;
+	@Autowired
+	PropertyDao propertyDao;
+	@Override
+	public boolean addAppointmentSlot(AddAppointmentSlotDto appointmentSlotDto) {
+		// TODO Auto-generated method stub
+		int userId = appointmentSlotDto.getUser();
+		int ownerId = appointmentSlotDto.getOwner();
+		int PropertyId = appointmentSlotDto.getProperty();
+		
+		Appointments appointment = mapper.map(appointmentSlotDto, Appointments.class);
+		
+		Optional<Property> propertyopt =  propertyDao.findById(PropertyId);
+		
+		appointment.setProperty(propertyopt.get());
+		
+		return false;
+	}
+	
+	
+
+}
