@@ -1,19 +1,15 @@
 export function verify(email,password) {
-    if (email === 'atharva@gmail' && password === '1234') {
+    if(email === 'atharva@gmail' && password === '1234') {
         return true;
     }
-    return false;
+   
+else if(email === 'pranjal@gmail' && password === '1234') {
+            return true;
 }
-export function verifyOwner(email,password) {
-    if (email === 'atharva@gmail' && password === '1234') {
-        return true;
+else if(email === 'parthavi@gmail' && password === '1234') {
+    return true;
     }
-    return false;
-}
-
-export function verifyAdmin(email,password) {
-    if (email === 'atharva@gmail' && password === '1234') {
-        return true;
+    else {
+        return false;
     }
-    return false;
-}
+}  

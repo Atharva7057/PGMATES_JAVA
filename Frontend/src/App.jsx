@@ -1,7 +1,7 @@
 import LandingPage from "../Components/LandingPage"
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import UserLogin from '../Components/UserLogin';
+import Login from '../Components/Login';
 import OwnerLogin from '../Components/OwnerLogin';
 import AdminLogin from '../Components/AdminLogin';
 import UserRoutes from "./UserRoutes";
@@ -13,7 +13,7 @@ function App() {
     <Router>
       <Routes>
         <Route  path="/" element={<LandingPage />}></Route>
-        <Route path="/user-login" element ={<UserLogin/>}></Route>
+        <Route path="/login" element ={<Login/>}></Route>
         <Route path="/owner-login" element ={<OwnerLogin/>}></Route>
         <Route path="/admin-login" element ={<AdminLogin/>}></Route>
 
