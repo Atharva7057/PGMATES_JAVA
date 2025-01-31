@@ -2,6 +2,7 @@ package com.pgmates.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.pgmates.dao.AuthDao;
 import com.pgmates.dto.UserDto;
@@ -9,6 +10,7 @@ import com.pgmates.entity.User;
 import com.pgmates.enums.Gender;
 import com.pgmates.enums.Role;
 
+@Service
 public class AuthServiceImpl implements AuthService {
 
     @Autowired
