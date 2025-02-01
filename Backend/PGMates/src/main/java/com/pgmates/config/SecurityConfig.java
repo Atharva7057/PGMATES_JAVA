@@ -31,6 +31,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+<<<<<<< HEAD
                 .requestMatchers("/api/authenticate/register").permitAll()
                 .requestMatchers("/api/authenticate/login").permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
@@ -39,6 +40,16 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // Add JWT filter
+=======
+                .requestMatchers("/api/authenticate/register").permitAll() // Allow public access to register endpoint
+                .requestMatchers("/api/authenticate/login").permitAll() // Allow public access to login endpoint
+                .requestMatchers("/admin/**").permitAll() // Only ADMIN can access admin endpoints
+                .requestMatchers("/owner/**").permitAll() // Only OWNER can access owner endpoints
+                .requestMatchers("/user/**").permitAll() // Only USER can access user endpoints
+                .anyRequest().authenticated() // Secure all other endpoints
+            );
+
+>>>>>>> ef2543fb82e42c4b2ef71d088403bfe1f8939bbb
         return http.build();
     }
 

@@ -1,9 +1,5 @@
 package com.pgmates.dto;
 
-import com.pgmates.entity.Property;
-import com.pgmates.entity.User;
-//import com.pgmates.entity.Owner;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -13,4 +13,7 @@ public interface UserServicesIF {
 	public List<PropertyDto> getAllProperties();
 	public PropertyDetailsDto getPropertyWithAllDetails(int pid);
 	public ApiResponse addReview(ReviewInfo reviewdata);
+	public ApiResponse bookAppointment( int userId,  int appointmentId);
+	public ApiResponse cancelUserAppointment(int appointmentId);
+	
 }

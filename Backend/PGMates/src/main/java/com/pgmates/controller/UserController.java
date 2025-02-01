@@ -31,6 +31,25 @@ public class UserController {
         int id = Integer.parseInt(propertyId);
         return user_service.getPropertyWithAllDetails(id);
     }
+<<<<<<< HEAD
+=======
+	
+	@PostMapping("/addreview")
+	public ResponseEntity<?> addReview(@RequestBody ReviewInfo reviewdata) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(user_service.addReview(reviewdata));
+	}
+	
+	@PostMapping("/bookAppointment/{userId}/{appointmentId}")
+	public ResponseEntity<?> bookAppointment(@PathVariable int userId, @PathVariable int appointmentId){
+		return ResponseEntity.status(HttpStatus.OK).body(user_service.bookAppointment(userId, appointmentId));
+	}
+	
+	@PostMapping("/cancelAppointment/{appointmentId}")
+	public ResponseEntity<?> cancelAppointment(@PathVariable int appointmentId){
+		return ResponseEntity.status(HttpStatus.OK).body(user_service.cancelUserAppointment(appointmentId));
+	}
+	
+>>>>>>> ef2543fb82e42c4b2ef71d088403bfe1f8939bbb
 
     @PostMapping("/addreview")
     //@PreAuthorize("hasRole('USER')")  //  Restricting access to USER role

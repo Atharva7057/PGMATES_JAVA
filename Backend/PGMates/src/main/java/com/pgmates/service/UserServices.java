@@ -7,7 +7,9 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import com.pgmates.dao.AppointmentsDao;
 import com.pgmates.dao.PropertyDao;
 import com.pgmates.dao.ReviewDao;
 import com.pgmates.dao.UserDao;
@@ -18,6 +20,7 @@ import com.pgmates.dto.PropertyDto;
 import com.pgmates.dto.ReviewInfo;
 import com.pgmates.dto.ReviewsDto;
 import com.pgmates.dto.UserDto;
+import com.pgmates.entity.Appointments;
 import com.pgmates.entity.Property;
 import com.pgmates.entity.Reviews;
 import com.pgmates.entity.User;
@@ -38,6 +41,9 @@ public class UserServices implements UserServicesIF {
 	
 	@Autowired
 	ReviewDao review_dao;
+	
+	@Autowired
+	AppointmentsDao appointment_dao;
 	
 
 	@Override
@@ -111,18 +117,43 @@ public class UserServices implements UserServicesIF {
 		return propertyDetails;
 	}
 	
-public ApiResponse addReview(ReviewInfo reviewdata) {
+	public ApiResponse addReview(ReviewInfo reviewdata) {
+		
+		User user = userdao.findById(reviewdata.getUserid()).orElseThrow(()-> new ResourceNotFoundException("No user Found"));
+		Property property = property_dao.findById(reviewdata.getPropertyid()).orElseThrow(()-> new ResourceNotFoundException("No property Found"));
+		
+		Reviews review = mapper.map(reviewdata, Reviews.class);
+		review.setUser(user);
+	    review.setProperty(property);
+	    property.getReviews().add(review);
+	    review_dao.save(review);
+	    return new ApiResponse("Review Added successfully");
+	}
 	
-	User user = userdao.findById(reviewdata.getUserid()).orElseThrow(()-> new ResourceNotFoundException("No user Found"));
-	Property property = property_dao.findById(reviewdata.getPropertyid()).orElseThrow(()-> new ResourceNotFoundException("No property Found"));
-	
-	Reviews review = mapper.map(reviewdata, Reviews.class);
-	review.setUser(user);
-    review.setProperty(property);
-    property.getReviews().add(review);
-    review_dao.save(review);
-    return new ApiResponse("Review Added successfully");
-}
+	public ApiResponse bookAppointment( int userId,  int appointmentId) {
+		User user = userdao.findById(userId).orElseThrow(()->new ResourceNotFoundException("Invalid User!"));
+		Appointments appointment = appointment_dao.findById(appointmentId).orElseThrow(()->new ResourceNotFoundException("No appointment found"));
+		appointment.setBooked(true);
+		appointment.setUser(user);
+		return new ApiResponse("Appointment booked successfully");
+	}
+
+
+	@Override
+	public ApiResponse cancelUserAppointment(int appointmentId) {
+		 Appointments appointment = appointment_dao.findById(appointmentId)
+	                .orElseThrow(() -> new ResourceNotFoundException("Appointment not found!"));
+	        
+	        if (!appointment.isBooked()) {
+	            return new ApiResponse("Appointment is already not booked!");
+	        }
+	        
+	        appointment.setBooked(false);
+	        appointment.setUser(null);
+	        appointment_dao.save(appointment);
+	        
+	        return new ApiResponse("Appointment Cancelled Successfully!");
+	    }
 
 	
 }

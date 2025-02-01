@@ -1,0 +1,17 @@
+spring.application.name=PGMATES
+#Tomcat server port number 8080
+server.port=8081
+#context path default value : empty
+#server.servlet.context-path=/ems
+#server.servlet.session.persistent=false
+#DB properties
+spring.datasource.url=jdbc:mysql://localhost:3306/pgmatesdemojava?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+spring.datasource.username=root
+spring.datasource.password=cdac
+# JPA properties
+spring.jpa.show-sql = true
+spring.jpa.hibernate.ddl-auto = update
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQLDialect
+#logging.level.org.springframework.orm.hibernate5=DEBUG
+jwt.secret=3d62b8f92b47cf5o2c7eaa185a8a7189d9ab8725dfe0a0e1
+jwt.expiration=3600000 
