@@ -40,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             return new  UserDto(user.getUserId(), user.getFirstName(), user.getLastName(), 
                                user.getGender().name(), user.getContact(), 
-                               user.getEmail(), user.getRole().name(), user.getPassword());
+                               user.getEmail(),user.getPassword() ,user.getRole().name());
         }
         return null;
     }

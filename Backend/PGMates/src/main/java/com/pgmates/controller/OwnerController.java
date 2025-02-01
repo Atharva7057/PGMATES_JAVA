@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,5 +34,17 @@ public class OwnerController {
 	@DeleteMapping("/deleteAppointmentSlot/{appointmentID}")
 	public ResponseEntity<?> deleteAppointmentSlot(@PathVariable int appointmentID){
 		return ResponseEntity.status(HttpStatus.OK).body(ownerService.deleteAppointmentSlot(appointmentID));
+	}
+	
+	@PutMapping("update/{appointmentId}")
+    public ResponseEntity<?> updateAppointmentSlot(@PathVariable int appointmentId, @RequestBody AddAppointmentSlotDto appointmentSlotDto) {
+        ApiResponse response =  ownerService.updateAppointmentSlot(appointmentId, appointmentSlotDto);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+	
+	@PostMapping("/cancelAppointment/{appointmentId}")
+	public ResponseEntity<?>cancelAppointment(@PathVariable int appointmentId){
+		ApiResponse response = ownerService.cancelAppointment(appointmentId);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 }

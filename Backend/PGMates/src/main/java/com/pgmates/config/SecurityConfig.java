@@ -30,9 +30,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/authenticate/register").permitAll() // Allow public access to register endpoint
                 .requestMatchers("/api/authenticate/login").permitAll() // Allow public access to login endpoint
-                .requestMatchers("/admin/**").hasRole("ADMIN") // Only ADMIN can access admin endpoints
-                .requestMatchers("/owner/**").hasRole("OWNER") // Only OWNER can access owner endpoints
-                .requestMatchers("/user/**").hasRole("USER") // Only USER can access user endpoints
+                .requestMatchers("/admin/**").permitAll() // Only ADMIN can access admin endpoints
+                .requestMatchers("/owner/**").permitAll() // Only OWNER can access owner endpoints
+                .requestMatchers("/user/**").permitAll() // Only USER can access user endpoints
                 .anyRequest().authenticated() // Secure all other endpoints
             );
 

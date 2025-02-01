@@ -14,6 +14,7 @@ import com.pgmates.dto.ApiResponse;
 import com.pgmates.entity.Appointments;
 import com.pgmates.entity.Property;
 import com.pgmates.entity.User;
+import com.pgmates.exceptions.ResourceNotFoundException;
 
 import jakarta.transaction.Transactional;
 
@@ -66,7 +67,54 @@ public class OwnerServices implements OwnerServicesIF {
 		appointmentDao.deleteById(appointmentId);
 		return new ApiResponse("Slot deleted successfully!");
 	}
-	
+
+	@Override
+	public ApiResponse updateAppointmentSlot(int appointmentId, AddAppointmentSlotDto appointmentSlotDto) {
+		// TODO Auto-generated method stub
+		 Optional<Appointments> appointmentOpt = appointmentDao.findById(appointmentId);
+	        
+	        if (!appointmentOpt.isPresent()) {
+	            return new ApiResponse("Appointment not found!");
+	        }
+	        
+	        Appointments appointment = appointmentOpt.get();
+	        
+	        int ownerId = appointmentSlotDto.getOwner();
+	        int propertyId = appointmentSlotDto.getProperty();
+	        
+	        Optional<Property> propertyOpt = propertyDao.findById(propertyId);
+	        Optional<User> ownerOpt = userdao.findById(ownerId);
+	        
+	        if (!propertyOpt.isPresent() || !ownerOpt.isPresent()) {
+	            return new ApiResponse("Invalid Property or Owner!");
+	        }
+	        
+	        appointment.setProperty(propertyOpt.get());
+	        appointment.setOwner(ownerOpt.get());
+	        appointment.setDate(appointmentSlotDto.getDate());
+	        appointment.setTime(appointmentSlotDto.getTime());
+	        appointment.setEndTime(appointmentSlotDto.getEndTime());
+	        appointment.setBooked(appointmentSlotDto.isBooked());
+	        
+	        appointmentDao.save(appointment);
+	        
+	        return new ApiResponse("Appointment Slot Updated Successfully!");
+		
+	}
+	 public ApiResponse cancelAppointment(int appointmentId) {
+		 Appointments appointment = appointmentDao.findById(appointmentId)
+	                .orElseThrow(() -> new ResourceNotFoundException("Appointment not found!"));
+	        
+	        if (!appointment.isBooked()) {
+	            return new ApiResponse("Appointment is already not booked!");
+	        }
+	        
+	        appointment.setBooked(false);
+	        appointment.setUser(null);
+	        appointmentDao.save(appointment);
+	        
+	        return new ApiResponse("Appointment Cancelled Successfully!");
+	    }
 	
 
 }

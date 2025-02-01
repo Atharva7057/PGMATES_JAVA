@@ -1,11 +1,5 @@
 package com.pgmates.dto;
 
-import java.util.List;
-
-import com.pgmates.entity.Appointments;
-import com.pgmates.enums.Gender;
-import com.pgmates.enums.Role;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;

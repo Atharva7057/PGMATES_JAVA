@@ -43,5 +43,15 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(user_service.addReview(reviewdata));
 	}
 	
+	@PostMapping("/bookAppointment/{userId}/{appointmentId}")
+	public ResponseEntity<?> bookAppointment(@PathVariable int userId, @PathVariable int appointmentId){
+		return ResponseEntity.status(HttpStatus.OK).body(user_service.bookAppointment(userId, appointmentId));
+	}
+	
+	@PostMapping("/cancelAppointment/{appointmentId}")
+	public ResponseEntity<?> cancelAppointment(@PathVariable int appointmentId){
+		return ResponseEntity.status(HttpStatus.OK).body(user_service.cancelUserAppointment(appointmentId));
+	}
+	
 
 }

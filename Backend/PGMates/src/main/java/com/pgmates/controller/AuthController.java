@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pgmates.config.JwtUtil;
+import com.pgmates.dto.ApiResponse;
 import com.pgmates.dto.UserDto;
 import com.pgmates.service.AuthService;
 
 
 @RestController
 @RequestMapping("/api/authenticate")
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthController {
 
 	    @Autowired
@@ -29,9 +32,9 @@ public class AuthController {
 	    private JwtUtil jwtUtil;
 
 	    @PostMapping("/register")
-	    public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDTO) {
+	    public ResponseEntity<?> registerUser(@RequestBody UserDto userDTO){
 	    	UserDto registeredUser = authService.registerUser(userDTO);
-	        return ResponseEntity.ok(registeredUser);
+	        return ResponseEntity.ok(new ApiResponse("User Registered Successfully!"));
 	    }
 
 	    @PostMapping("/login")
@@ -39,7 +42,7 @@ public class AuthController {
 	    	UserDto authenticatedUser = authService.authenticateUser(userDTO.getEmail(), userDTO.getPassword());
 	        if (authenticatedUser != null) {
 	            String token = jwtUtil.generateToken(authenticatedUser);
-
+	            
 	            // Creating a mutable map
 	            Map<String, Object> response = new HashMap<>();
 	            response.put("token", token);
