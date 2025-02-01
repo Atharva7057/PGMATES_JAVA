@@ -1,47 +1,46 @@
 package com.pgmates.controller;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.pgmates.dto.LoginRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
 import com.pgmates.dto.PropertyDetailsDto;
 import com.pgmates.dto.PropertyDto;
 import com.pgmates.dto.ReviewInfo;
-import com.pgmates.dto.UserDto;
 import com.pgmates.service.UserServices;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
 @CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
 	
-	@Autowired
-	UserServices user_service;
-	
-	
-	@GetMapping("/getAllProperties")
-	 public List<PropertyDto> getAllProperties() {
+    @Autowired
+    UserServices user_service;
+
+    @GetMapping("/getAllProperties")
+    //@PreAuthorize("hasRole('USER')")  // ✅ Restricting access to USER role
+    public List<PropertyDto> getAllProperties() {
         return user_service.getAllProperties();
     }
-	
-	@GetMapping("/properties/{propertyId}")
+
+    @GetMapping("/properties/{propertyId}")
+    //@PreAuthorize("hasRole('USER')")  // ✅ Restricting access to USER role
     public PropertyDetailsDto getPropertyDetails(@PathVariable String propertyId) {
-		int id = Integer.parseInt(propertyId);
+        int id = Integer.parseInt(propertyId);
         return user_service.getPropertyWithAllDetails(id);
     }
-	
-	@PostMapping("/addreview")
-	public ResponseEntity<?> addReview(@RequestBody ReviewInfo reviewdata) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(user_service.addReview(reviewdata));
-	}
-	
 
+    @PostMapping("/addreview")
+    //@PreAuthorize("hasRole('USER')")  //  Restricting access to USER role
+    public ResponseEntity<?> addReview(@RequestBody ReviewInfo reviewdata) {
+        return ResponseEntity.ok(user_service.addReview(reviewdata));
+    }
+
+    @GetMapping("/demo")
+    public void demolist() {
+        List<String> demoList = List.of("parthavi", "ayushi", "donald duck");
+        demoList.forEach(System.out::println);
+    }
 }

@@ -6,6 +6,8 @@ import com.pgmates.enums.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,12 +29,14 @@ import lombok.Setter;
 	    private String firstName;
 	    @Column(nullable = false)
 	    private String lastName;
+	    @Enumerated(EnumType.STRING)
 	    @Column(nullable = false)
 	    private Gender gender;
 	    @Column(nullable = false)
 	    private String contact;
 	    @Column(nullable = false)
 	    private String email;
+	    @Enumerated(EnumType.STRING)
 	    @Column(nullable = false)
 	    private Role role;
 	    @Column(nullable = false)
