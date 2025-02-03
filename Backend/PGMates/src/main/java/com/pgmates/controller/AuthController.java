@@ -1,6 +1,7 @@
 package com.pgmates.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,8 +27,12 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserDto userDTO) {
-        UserDto registeredUser = authService.registerUser(userDTO);
-        return ResponseEntity.ok(new ApiResponse("User Registered Successfully!"));
+        ApiResponse registeredUser = authService.registerUser(userDTO);
+        if(!registeredUser.getMessage().equals("User Registered Successfully!")) {
+        	return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(registeredUser);
+        }
+        
+        return ResponseEntity.ok(registeredUser);
     }
 
 

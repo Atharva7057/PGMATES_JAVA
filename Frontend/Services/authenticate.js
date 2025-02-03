@@ -1,15 +1,36 @@
+
+import axios from 'axios';
+import { use } from 'react';
+
+const BASE_URL = "http://localhost:8080/api/authenticate";
+
 export function verify(email,password) {
-    if(email === 'atharva@gmail' && password === '1234') {
-        return true;
-    }
+    const requestBody = {
+        email: email,
+        password: password
+    };
+   const loginResponse = axios.post(BASE_URL+"/login",requestBody);
+//    console.log(loginResponse);
    
-else if(email === 'pranjal@gmail' && password === '1234') {
-            return true;
-}
-else if(email === 'parthavi@gmail' && password === '1234') {
-    return true;
-    }
-    else {
-        return false;
-    }
+   return loginResponse;
 }  
+
+export async function registerUser(userData){
+    try{
+        const userRole = userData.role === "user"?"ROLE_USER":"ROLE_OWNER";
+        const userGender = userData.gender === "male"?"MALE":"FEMALE";
+        var requestBody={
+            firstName : userData.firstName,
+            lastName : userData.lastName,
+            role : userRole,
+            gender : userGender,
+            contact : userData.contact,
+            email : userData.email,
+            password : userData.password
+        }
+        const registerResponse =await axios.post(BASE_URL+"/register",requestBody);
+        return registerResponse;
+    }catch(error){
+        return error;
+    }
+}
