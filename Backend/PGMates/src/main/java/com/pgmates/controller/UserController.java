@@ -2,6 +2,7 @@ package com.pgmates.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import com.pgmates.dto.PropertyDetailsDto;
 import com.pgmates.dto.PropertyDto;
 import com.pgmates.dto.ReviewInfo;
+import com.pgmates.dto.UsersBookedAppointmentDto;
 import com.pgmates.service.UserServices;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/user")
@@ -31,9 +36,7 @@ public class UserController {
         int id = Integer.parseInt(propertyId);
         return user_service.getPropertyWithAllDetails(id);
     }
-<<<<<<< HEAD
-=======
-	
+
 	@PostMapping("/addreview")
 	public ResponseEntity<?> addReview(@RequestBody ReviewInfo reviewdata) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(user_service.addReview(reviewdata));
@@ -49,17 +52,12 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(user_service.cancelUserAppointment(appointmentId));
 	}
 	
->>>>>>> ef2543fb82e42c4b2ef71d088403bfe1f8939bbb
+	@GetMapping("/bookedAppointmentsByUserId/{userId}")
+	public  ResponseEntity<?> bookedAppointmentByUser(@PathVariable int userId) {
+		List<UsersBookedAppointmentDto> list = user_service.getBookedAppointmentsByUserId(userId);
+		return ResponseEntity.status(HttpStatus.OK).body(list);
+	}
+	
 
-    @PostMapping("/addreview")
-    //@PreAuthorize("hasRole('USER')")  //  Restricting access to USER role
-    public ResponseEntity<?> addReview(@RequestBody ReviewInfo reviewdata) {
-        return ResponseEntity.ok(user_service.addReview(reviewdata));
-    }
-
-    @GetMapping("/demo")
-    public void demolist() {
-        List<String> demoList = List.of("parthavi", "ayushi", "donald duck");
-        demoList.forEach(System.out::println);
-    }
+    
 }

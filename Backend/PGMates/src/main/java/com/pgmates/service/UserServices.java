@@ -20,6 +20,7 @@ import com.pgmates.dto.PropertyDto;
 import com.pgmates.dto.ReviewInfo;
 import com.pgmates.dto.ReviewsDto;
 import com.pgmates.dto.UserDto;
+import com.pgmates.dto.UsersBookedAppointmentDto;
 import com.pgmates.entity.Appointments;
 import com.pgmates.entity.Property;
 import com.pgmates.entity.Reviews;
@@ -154,6 +155,24 @@ public class UserServices implements UserServicesIF {
 	        
 	        return new ApiResponse("Appointment Cancelled Successfully!");
 	    }
+
+
+	@Override
+	public List<UsersBookedAppointmentDto> getBookedAppointmentsByUserId(int userId) {
+		// TODO Auto-generated method stub
+		List<UsersBookedAppointmentDto> usersList = new ArrayList<>();
+		
+		List<Appointments> appointmentsBookedByUser = appointment_dao.getAppointmentsByUserId(userId);
+		
+		for (Appointments appointments : appointmentsBookedByUser) {
+			int propertyId = appointments.getProperty().getPropertyId();
+			UsersBookedAppointmentDto dto = mapper.map(appointments, UsersBookedAppointmentDto.class);
+			dto.setPropertyId(propertyId);
+			usersList.add(dto);
+		}
+		
+		return usersList ;
+	}
 
 	
 }

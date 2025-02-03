@@ -5,8 +5,11 @@ import com.pgmates.dao.AuthDao;
 import com.pgmates.dto.AuthResponse;
 import com.pgmates.dto.UserDto;
 import com.pgmates.entity.User;
+import com.pgmates.exceptions.ResourceNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,6 +46,7 @@ public class AuthService {
     }
     
     public AuthResponse loginUser(UserDto userDTO) {
+    	try {
         // Authenticate user
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword())
@@ -70,14 +74,11 @@ public class AuthService {
 
         // Return token + user details
         return new AuthResponse(token, userDto);
+    	}catch(BadCredentialsException e) {
+    		throw new ResourceNotFoundException("Invalid username or Password");
+    	}
+    	
     }
 
 
-//    public String loginUser(UserDto userDTO) {
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword())
-//        );
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        return jwtUtil.generateToken((UserDetails) authentication.getPrincipal());
-//    }
 }

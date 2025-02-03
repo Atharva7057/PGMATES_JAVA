@@ -28,7 +28,7 @@ public class OwnerController {
 	@Autowired
 	OwnerServices ownerService;
 	
-	 //@PreAuthorize("hasAuthority('ROLE_OWNER')")
+	
 	@PostMapping("/addAppointmentSlot")
 	public ResponseEntity<?> addAppointmentSlot(@RequestBody AddAppointmentSlotDto appointmentDto){
 		
@@ -37,21 +37,13 @@ public class OwnerController {
 		
 	}
 	
-	// @PreAuthorize("hasAuthority('ROLE_OWNER')")
+	
 	@DeleteMapping("/deleteAppointmentSlot/{appointmentID}")
 	public ResponseEntity<?> deleteAppointmentSlot(@PathVariable int appointmentID){
 		return ResponseEntity.status(HttpStatus.OK).body(ownerService.deleteAppointmentSlot(appointmentID));
 	}
 	
-<<<<<<< HEAD
-	 //@PreAuthorize("hasAuthority('ROLE_OWNER')")
-	@GetMapping("/demo")
-	public void  demolist(){
-		List<String> demoList = new ArrayList();
-		demoList.add("parthavi");
-		demoList.add("ayushi");
-		demoList.add("donald duck");
-=======
+
 	@PutMapping("update/{appointmentId}")
     public ResponseEntity<?> updateAppointmentSlot(@PathVariable int appointmentId, @RequestBody AddAppointmentSlotDto appointmentSlotDto) {
         ApiResponse response =  ownerService.updateAppointmentSlot(appointmentId, appointmentSlotDto);
@@ -62,6 +54,6 @@ public class OwnerController {
 	public ResponseEntity<?>cancelAppointment(@PathVariable int appointmentId){
 		ApiResponse response = ownerService.cancelAppointment(appointmentId);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
->>>>>>> ef2543fb82e42c4b2ef71d088403bfe1f8939bbb
+
 	}
 }

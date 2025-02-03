@@ -4,7 +4,6 @@
 <workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1733512357607_1" label="Java Test Sources" name="Java Test Sources"/>
 <workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1733512401323_3" label="" name="">
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/PGMates" type="4"/>
-<item TAG_MARKER_ID="886" TAG_RESOURCE_FACTORY_ID="org.eclipse.ui.internal.model.ResourceFactory" factoryID="org.eclipse.debug.ui.elementFactory.breakpoints" path="/PGMates/src/main/java/com/pgmates/service/UserServices.java" type="1"/>
 </workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1733512361413_2" label="Window Working Set" name="Aggregate for window 1733512361413"/>
 </workingSetManager>
