@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route, Outlet } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Routes, Route, Outlet, useNavigate } from 'react-router-dom';
 import UserHome from "../Components/UserComponents/UserHome";
 import Home from "../Components/UserComponents/Home";
 import Services from "../Components/UserComponents/Services";
@@ -7,6 +7,8 @@ import About from "../Components/UserComponents/About";
 import ViewListings from "../Components/UserComponents/ViewListings";
 import ViewDetails from "../Components/UserComponents/ViewDetails";
 import UserNavbar from "../Components/UserComponents/UserNavbar";
+import AccessDenied from '../src/AccessDenied.jsx';
+import UserLogin from '../Components/Login.jsx';
 
 const UserLayout = () => (
   <>
@@ -15,18 +17,51 @@ const UserLayout = () => (
   </>
 );
 
-const UserRoutes = () => (
-  <Routes>
-    <Route element={<UserLayout />}>
-      {/* Nested routes without leading `/` */}
-      <Route path="user-home" element={<UserHome />} /> 
-      <Route path="home" element={<Home />} />
-      <Route path="view-listings" element={<ViewListings />} />
-      <Route path="services" element={<Services />} />
-      <Route path="about" element={<About />} />
-      <Route path="view-details" element={<ViewDetails />} />
-    </Route>
-  </Routes>
-);
+const UserRoutes = () => {
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isUser, setIsUser] = useState(false);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('jwtToken');
+    const role = sessionStorage.getItem('userRole');
+
+    if (token && role === "USER") {
+      setIsAuthenticated(true); // Logged in and user
+      setIsUser(true);
+    } else if (!token) {
+      // If no token, redirect to login page
+      setIsAuthenticated(false);
+      navigate('/login?isLogin=true');
+    } else if (role !== "USER") {
+      // If role is not USER, deny access
+      setIsUser(false);
+      // navigate('access-denied');
+    }
+  }, [navigate]);
+
+  if (isAuthenticated === null) {
+    return <div>Loading...</div>; // or a spinner while navigating
+  }
+
+  return (
+    <Routes>
+      {/* User Layout Route */}
+      <Route element={<UserLayout />}>
+        {/* Nested Route under User Layout */}
+        <Route path="user-home" element={isUser ? <UserHome /> : <AccessDenied />} />
+        <Route path="home" element={isUser ? <Home /> : <AccessDenied />} />
+        <Route path="view-listings" element={isUser ? <ViewListings /> : <AccessDenied />} />
+        <Route path="services" element={isUser ? <Services /> : <AccessDenied />} />
+        <Route path="about" element={isUser ? <About /> : <AccessDenied />} />
+        <Route path="view-details" element={isUser ? <ViewDetails /> : <AccessDenied />} />
+      </Route>
+
+      {/* Routes for non-authenticated users */}
+      <Route path="access-denied" element={<AccessDenied />} />
+      <Route path="login" element={<UserLogin />} />
+    </Routes>
+  );
+};
 
 export default UserRoutes;

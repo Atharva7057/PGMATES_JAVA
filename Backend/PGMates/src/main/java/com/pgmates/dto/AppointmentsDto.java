@@ -9,9 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AppointmentsDto {
     private int apptId;
-//    private PropertyDetailsDto property; // Can be changed to a PropertyDto if you want to avoid exposing full entity
-//    private UserDto user; // Can be changed to a UserDto
-//    private OwnerDto owner; // Can be changed to an OwnerDto
     private String date;
     private String time;
     private String endTime;
@@ -20,9 +17,6 @@ public class AppointmentsDto {
     // Constructor
     public AppointmentsDto(int apptId, PropertyDto property, UserDto user, UserDto owner, String date, String time, String endTime, boolean isBooked) {
         this.apptId = apptId;
-//        this.property = property;
-//        this.user = user;
-//        this.owner = owner;
         this.date = date;
         this.time = time;
         this.endTime = endTime;

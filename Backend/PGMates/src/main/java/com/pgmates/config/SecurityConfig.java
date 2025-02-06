@@ -31,7 +31,6 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-
                 .requestMatchers("/api/authenticate/register").permitAll()
                 .requestMatchers("/api/authenticate/login").permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
@@ -40,6 +39,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // Add JWT filter
+
         return http.build();
     }
 

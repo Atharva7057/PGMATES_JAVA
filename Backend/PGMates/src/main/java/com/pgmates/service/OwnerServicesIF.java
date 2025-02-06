@@ -11,10 +11,14 @@ public interface OwnerServicesIF {
 	public ApiResponse addAppointmentSlot(AddAppointmentSlotDto appointmentSlotDto);
 	public ApiResponse deleteAppointmentSlot(int appointmentId);
 	public ApiResponse updateAppointmentSlot(int appointmentId, AddAppointmentSlotDto appointmentSlotDto);
+
 	 public ApiResponse cancelAppointment(int appointmentId);
 	 public ApiResponse registerProperty(int owner_id, PropertyRequest propertyRequestDTO);
 	 public List<PropertyDto> getPropertiesByOwner(int owner_id);
 	ApiResponse updateProperty(int owner_id, int propertyId, PropertyRequest propertyRequest);
 	 ApiResponse deleteProperty(int owner_id, int propertyId);
 	
+
+//	public ApiResponse cancelAppointment(int appointmentId);
+
 }

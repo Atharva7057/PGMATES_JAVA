@@ -1,13 +1,13 @@
 package com.pgmates.dto;
 
 
+
 import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pgmates.entity.Appointments;
 import com.pgmates.enums.Gender;
 import com.pgmates.enums.Role;
-
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,10 +29,4 @@ public class UserDto {
 	    private String email;   
 	    private String password;
 	    private Role  role;
-//	    @JsonDeserialize(using = GenderDeserializer.class)
-//	    private Gender genderEnum;
-//	   
-//	    @JsonDeserialize(using = RoleDeserializer.class)
-//	    private Role roleEnum;
-////	    private List<Appointments> appointments; // User's booked appointments
 }

@@ -3,16 +3,22 @@ package com.pgmates.globalExceptionHandler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.config.annotation.AlreadyBuiltException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.pgmates.dto.ApiResponse;
+import com.pgmates.exceptions.AlreadyExistException;
 import com.pgmates.exceptions.ResourceNotFoundException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException e){
 		return ResponseEntity.status(HttpStatus.NOT_FOUND ).body(new ApiResponse(e.getMessage()));
+	}
+	@ExceptionHandler(AlreadyExistException.class)
+	public ResponseEntity<?>handleAlreadyExistException(AlreadyBuiltException e){
+		return ResponseEntity.status(HttpStatus.ALREADY_REPORTED ).body(new ApiResponse(e.getMessage()));
 	}
 	
 //	@ExceptionHandler(MethodArgumentNotValidException.class)

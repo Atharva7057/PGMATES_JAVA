@@ -2,11 +2,17 @@ package com.pgmates.service;
 
 import com.pgmates.config.JwtUtil;
 import com.pgmates.dao.AuthDao;
+import com.pgmates.dao.UserDao;
+import com.pgmates.dto.ApiResponse;
 import com.pgmates.dto.AuthResponse;
 import com.pgmates.dto.UserDto;
 import com.pgmates.entity.User;
+import com.pgmates.exceptions.AlreadyExistException;
+import com.pgmates.exceptions.ResourceNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +22,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
+	@Autowired
+	private UserDao userdao;
 
     @Autowired
     private AuthDao authDao; // Use AuthDao instead of UserRepository
@@ -29,7 +37,13 @@ public class AuthService {
     @Autowired
     private JwtUtil jwtUtil;
 
-    public UserDto registerUser(UserDto userDTO) {
+    public ApiResponse registerUser(UserDto userDTO)  {
+    	
+    	boolean isExist = userdao.existsByEmail(userDTO.getEmail());
+        if(isExist) {
+        	return new ApiResponse("User Already Exist With Email "+userDTO.getEmail());
+        }
+    	
         User user = new User();
         user.setEmail(userDTO.getEmail());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
@@ -39,10 +53,11 @@ public class AuthService {
         user.setGender(userDTO.getGender());
         user.setContact(userDTO.getContact());
         authDao.save(user); // Use AuthDao to save the user
-        return userDTO;
+        return new ApiResponse("User Registered Successfully!");
     }
     
     public AuthResponse loginUser(UserDto userDTO) {
+    	try {
         // Authenticate user
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword())
@@ -70,6 +85,10 @@ public class AuthService {
 
         // Return token + user details
         return new AuthResponse(token, userDto);
+    	}catch(BadCredentialsException e) {
+    		throw new ResourceNotFoundException("Invalid username or Password");
+    	}
+    	
     }
 
 }

@@ -31,6 +31,7 @@ public class OwnerController {
 	@Autowired
 	OwnerServices ownerService;
 	
+
 	 @PostMapping("/{owner_id}/properties/register")
 	    public ResponseEntity<?> registerProperty(@PathVariable int owner_id, @RequestBody PropertyRequest propertyRequestDTO) {
 	        return ResponseEntity.status(HttpStatus.CREATED).body(ownerService.registerProperty(owner_id, propertyRequestDTO));
@@ -61,7 +62,7 @@ public class OwnerController {
 	        return ResponseEntity.ok(response); // Return the response
 	    }
 	
-	 //@PreAuthorize("hasAuthority('ROLE_OWNER')")
+
 	@PostMapping("/addAppointmentSlot")
 	public ResponseEntity<?> addAppointmentSlot(@RequestBody AddAppointmentSlotDto appointmentDto){
 		
@@ -70,22 +71,12 @@ public class OwnerController {
 		
 	}
 	
-	// @PreAuthorize("hasAuthority('ROLE_OWNER')")
+	
 	@DeleteMapping("/deleteAppointmentSlot/{appointmentID}")
 	public ResponseEntity<?> deleteAppointmentSlot(@PathVariable int appointmentID){
 		return ResponseEntity.status(HttpStatus.OK).body(ownerService.deleteAppointmentSlot(appointmentID));
 	}
 	
-
-	 //@PreAuthorize("hasAuthority('ROLE_OWNER')")
-	@GetMapping("/demo")
-	public void  demolist(){
-		List<String> demoList = new ArrayList();
-		demoList.add("parthavi");
-		demoList.add("ayushi");
-		demoList.add("donald duck");
-	}
-
 	@PutMapping("update/{appointmentId}")
     public ResponseEntity<?> updateAppointmentSlot(@PathVariable int appointmentId, @RequestBody AddAppointmentSlotDto appointmentSlotDto) {
         ApiResponse response =  ownerService.updateAppointmentSlot(appointmentId, appointmentSlotDto);

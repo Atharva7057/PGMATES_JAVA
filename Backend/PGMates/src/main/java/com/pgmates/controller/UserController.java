@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import com.pgmates.dto.PropertyDetailsDto;
 import com.pgmates.dto.PropertyDto;
 import com.pgmates.dto.ReviewInfo;
+import com.pgmates.dto.UsersBookedAppointmentDto;
 import com.pgmates.service.UserServices;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/user")
@@ -33,7 +37,6 @@ public class UserController {
         return user_service.getPropertyWithAllDetails(id);
     }
 
-	
 	@PostMapping("/addreview")
 	public ResponseEntity<?> addReview(@RequestBody ReviewInfo reviewdata) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(user_service.addReview(reviewdata));
@@ -51,9 +54,17 @@ public class UserController {
 	
 
 
+
     @GetMapping("/demo")
     public void demolist() {
         List<String> demoList = List.of("parthavi", "ayushi", "donald duck");
         demoList.forEach(System.out::println);
     }
+
+	@GetMapping("/bookedAppointmentsByUserId/{userId}")
+	public  ResponseEntity<?> bookedAppointmentByUser(@PathVariable int userId) {
+		List<UsersBookedAppointmentDto> list = user_service.getBookedAppointmentsByUserId(userId);
+		return ResponseEntity.status(HttpStatus.OK).body(list);
+	}
+	
 }

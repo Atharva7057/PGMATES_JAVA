@@ -9,9 +9,7 @@ class UserServices {
 
     getPropertyDetailsByID(pid){
         const id = parseInt(pid);
-        return axios.get(BASE_URL+`properties/${id}`);
-    
-        
+        return axios.get(BASE_URL+`properties/${id}`);       
     }
 
 }
