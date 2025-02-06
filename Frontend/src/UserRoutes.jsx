@@ -26,14 +26,14 @@ const UserRoutes = () => {
     const token = sessionStorage.getItem('jwtToken');
     const role = sessionStorage.getItem('userRole');
 
-    if (token && role === "USER") {
+    if (token && role === "ROLE_USER") {
       setIsAuthenticated(true); // Logged in and user
       setIsUser(true);
     } else if (!token) {
       // If no token, redirect to login page
       setIsAuthenticated(false);
       navigate('/login?isLogin=true');
-    } else if (role !== "USER") {
+    } else if (role !== "ROLE_USER") {
       // If role is not USER, deny access
       setIsUser(false);
       // navigate('access-denied');

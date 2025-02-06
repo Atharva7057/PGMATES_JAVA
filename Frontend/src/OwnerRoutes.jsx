@@ -35,10 +35,10 @@ function OwnerRoutes() {
     const token = sessionStorage.getItem('jwtToken');
     const role = sessionStorage.getItem('userRole');
 
-    if (token && role === 'OWNER') {
+    if (token && role === 'ROLE_OWNER') {
       setIsAuthenticated(true);
       setIsOwner(true);
-    } else if (token && role !== 'OWNER') {
+    } else if (token && role !== 'ROLE_OWNER') {
       setIsAuthenticated(true);
       setIsOwner(false);
     } else {
