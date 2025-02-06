@@ -7,12 +7,14 @@ import AdminLogin from '../Components/AdminLogin';
 import UserRoutes from "./UserRoutes";
 import OwnerRoutes from "./OwnerRoutes";
 import AdminRoutes from "./AdminRoutes";
+import LandingPageDemo from "../Components/LandingPageDemo";
 function App() {
   return (
     <>
     <Router>
       <Routes>
-        <Route  path="/" element={<LandingPage />}></Route>
+        <Route  path="/" element={<LandingPage/>}></Route>
+        
         <Route path="/login" element ={<Login/>}></Route>
         <Route path="/owner-login" element ={<OwnerLogin/>}></Route>
         <Route path="/admin-login" element ={<AdminLogin/>}></Route>

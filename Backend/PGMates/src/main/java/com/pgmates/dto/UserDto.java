@@ -1,6 +1,6 @@
 package com.pgmates.dto;
 
-<<<<<<< HEAD
+
 import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -8,8 +8,7 @@ import com.pgmates.entity.Appointments;
 import com.pgmates.enums.Gender;
 import com.pgmates.enums.Role;
 
-=======
->>>>>>> ef2543fb82e42c4b2ef71d088403bfe1f8939bbb
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;

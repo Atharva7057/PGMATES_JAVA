@@ -1,6 +1,8 @@
 package com.pgmates.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import com.pgmates.dao.PropertyDao;
 import com.pgmates.dao.UserDao;
 import com.pgmates.dto.AddAppointmentSlotDto;
 import com.pgmates.dto.ApiResponse;
+import com.pgmates.dto.PropertyDto;
+import com.pgmates.dto.PropertyRequest;
 import com.pgmates.entity.Appointments;
 import com.pgmates.entity.Property;
 import com.pgmates.entity.User;
@@ -112,9 +116,85 @@ public class OwnerServices implements OwnerServicesIF {
 	        appointment.setBooked(false);
 	        appointment.setUser(null);
 	        appointmentDao.save(appointment);
-	        
 	        return new ApiResponse("Appointment Cancelled Successfully!");
 	    }
+
+
+
+	 @Override
+	    public List<PropertyDto> getPropertiesByOwner(int owner_id) {
+	        List<Property> properties = propertyDao.findByOwner_UserId(owner_id);
+	        
+	        return properties.stream()
+	                .map(property -> mapper.map(property, PropertyDto.class))
+	                .collect(Collectors.toList());
+	    }
+
+	
+	//to register a property.
+	@Override
+	public ApiResponse registerProperty(int owner_id, PropertyRequest propertyRequestDTO) {
+		 User owner = userdao.findById(owner_id)
+	                .orElseThrow(() -> new ResourceNotFoundException("Owner not found"));
+	        
+	        Property property = mapper.map(propertyRequestDTO, Property.class);
+	        property.setOwner(owner); // Set the owner
+	        property = propertyDao.save(property);
+	        
+	        return new ApiResponse("Proprty registered successfully");
+	}
+
+	@Override
+	public ApiResponse updateProperty(int owner_id, int propertyId, PropertyRequest propertyRequest) {
+		
+
+        User owner = userdao.findById(owner_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Owner not found"));
+
+        // Fetch the property
+        Property existingProperty = propertyDao.findById(propertyId)
+                .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
+
+        // Check if the property belongs to the owner
+        if (existingProperty.getOwner().getUserId() != owner_id) {
+            throw new ResourceNotFoundException("You are not authorized to update this property.");
+        }
+
+        // Update fields from DTO
+        mapper.map(propertyRequest, existingProperty);
+
+        // Save the updated property
+        Property updatedProperty = propertyDao.save(existingProperty);
+
+        // Map the updated property to DTO
+        return new ApiResponse("Property Updated Successfully");
+    }
+
+	@Override
+	public ApiResponse deleteProperty(int owner_id, int propertyId) {
+		// Fetch the owner
+        User owner = userdao.findById(owner_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Owner not found"));
+
+        // Fetch the property
+        Property property = propertyDao.findById(propertyId)
+                .orElseThrow(() -> new  ResourceNotFoundException("Property not found"));
+
+        // Check if the property belongs to the owner
+        if (property.getOwner().getUserId() != owner_id) {
+            throw new ResourceNotFoundException("You are not authorized to delete this property.");
+        }
+
+        // Delete the property
+        propertyDao.delete(property);
+
+        // Return a success response
+        return new ApiResponse("Property deleted successfully");
+		
+	}
+
+		
+	}
 	
 
-}
+

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pgmates.dto.AddAppointmentSlotDto;
 import com.pgmates.dto.ApiResponse;
+import com.pgmates.dto.PropertyDto;
+import com.pgmates.dto.PropertyRequest;
 import com.pgmates.service.OwnerServices;
 
 @RestController
@@ -27,6 +30,36 @@ import com.pgmates.service.OwnerServices;
 public class OwnerController {
 	@Autowired
 	OwnerServices ownerService;
+	
+	 @PostMapping("/{owner_id}/properties/register")
+	    public ResponseEntity<?> registerProperty(@PathVariable int owner_id, @RequestBody PropertyRequest propertyRequestDTO) {
+	        return ResponseEntity.status(HttpStatus.CREATED).body(ownerService.registerProperty(owner_id, propertyRequestDTO));
+	    }
+
+	    @GetMapping("/{owner_id}/properties")
+	    public List<PropertyDto> getPropertiesByOwner(@PathVariable int owner_id) {
+	        return ownerService.getPropertiesByOwner(owner_id);
+	    }
+	    
+	    
+	    // Update a property owned by a specific owner
+	    @PutMapping("/{owner_id}/properties/{propertyId}")
+	    public ResponseEntity<?> updateProperty(
+	            @PathVariable int owner_id,
+	            @PathVariable int propertyId,
+	            @RequestBody PropertyRequest propertyRequest) {
+	    	ApiResponse updatedProperty = ownerService.updateProperty(owner_id, propertyId, propertyRequest);
+	        return ResponseEntity.ok(updatedProperty);
+	    }
+
+	 // Delete a property owned by a specific owner
+	    @DeleteMapping("/{owner_id}/properties/{propertyId}")
+	    public ResponseEntity<ApiResponse> deleteProperty(
+	            @PathVariable int owner_id,
+	            @PathVariable int propertyId) {
+	        ApiResponse response = ownerService.deleteProperty(owner_id, propertyId);
+	        return ResponseEntity.ok(response); // Return the response
+	    }
 	
 	 //@PreAuthorize("hasAuthority('ROLE_OWNER')")
 	@PostMapping("/addAppointmentSlot")
@@ -43,7 +76,7 @@ public class OwnerController {
 		return ResponseEntity.status(HttpStatus.OK).body(ownerService.deleteAppointmentSlot(appointmentID));
 	}
 	
-<<<<<<< HEAD
+
 	 //@PreAuthorize("hasAuthority('ROLE_OWNER')")
 	@GetMapping("/demo")
 	public void  demolist(){
@@ -51,7 +84,8 @@ public class OwnerController {
 		demoList.add("parthavi");
 		demoList.add("ayushi");
 		demoList.add("donald duck");
-=======
+	}
+
 	@PutMapping("update/{appointmentId}")
     public ResponseEntity<?> updateAppointmentSlot(@PathVariable int appointmentId, @RequestBody AddAppointmentSlotDto appointmentSlotDto) {
         ApiResponse response =  ownerService.updateAppointmentSlot(appointmentId, appointmentSlotDto);
@@ -62,6 +96,9 @@ public class OwnerController {
 	public ResponseEntity<?>cancelAppointment(@PathVariable int appointmentId){
 		ApiResponse response = ownerService.cancelAppointment(appointmentId);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
->>>>>>> ef2543fb82e42c4b2ef71d088403bfe1f8939bbb
+
 	}
+	
+	
+	
 }

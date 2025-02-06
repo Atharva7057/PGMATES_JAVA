@@ -41,7 +41,7 @@ public class Property {
     private String type;
     
     @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_id",referencedColumnName = "userId")
     private User owner;
     
     private String image;
@@ -89,6 +89,5 @@ public class Property {
 		Appointments = appointments;
 		this.reviews =  reviews;
 	}
-    
     
 }

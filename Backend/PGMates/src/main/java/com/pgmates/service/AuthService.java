@@ -72,12 +72,4 @@ public class AuthService {
         return new AuthResponse(token, userDto);
     }
 
-
-//    public String loginUser(UserDto userDTO) {
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword())
-//        );
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        return jwtUtil.generateToken((UserDetails) authentication.getPrincipal());
-//    }
 }

@@ -19,4 +19,5 @@ public class PropertyDto {
 	    private String forGender;
 	    private String furnishType;
 	    private AddressDto address;
+	    private boolean isavailable;
 }
