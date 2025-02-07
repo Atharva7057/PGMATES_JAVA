@@ -17,13 +17,10 @@
     "react-bootstrap": "^2.10.6",
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
-<<<<<<< HEAD
-    "react-router-dom": "^7.0.2",
-    "react-scroll": "^1.9.2"
-=======
     "react-icons": "^5.4.0",
-    "react-router-dom": "^7.0.2"
->>>>>>> 43156fb562d4b559513a28bc0aa0fbec0c00cdfc
+    "react-router-dom": "^7.0.2",
+    "react-scroll": "^1.9.2",
+    "react-toastify": "^11.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",

@@ -2,6 +2,7 @@ package com.pgmates.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,13 +13,17 @@ import com.pgmates.dto.PropertyDto;
 import com.pgmates.dto.ReviewInfo;
 import com.pgmates.dto.UsersBookedAppointmentDto;
 import com.pgmates.service.UserServices;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*", allowCredentials = "true")
 public class UserController {
 	
     @Autowired
@@ -53,18 +58,20 @@ public class UserController {
 	}
 	
 
-
-
-    @GetMapping("/demo")
-    public void demolist() {
-        List<String> demoList = List.of("parthavi", "ayushi", "donald duck");
-        demoList.forEach(System.out::println);
-    }
-
 	@GetMapping("/bookedAppointmentsByUserId/{userId}")
 	public  ResponseEntity<?> bookedAppointmentByUser(@PathVariable int userId) {
 		List<UsersBookedAppointmentDto> list = user_service.getBookedAppointmentsByUserId(userId);
 		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
+	@RequestMapping(value = "/**", method = RequestMethod.OPTIONS)
+    public ResponseEntity<?> handleOptions(HttpServletRequest request, HttpServletResponse response) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Allow-Origin", "http://localhost:5173");
+        headers.add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        headers.add("Access-Control-Allow-Headers", "Authorization, Content-Type");
+        headers.add("Access-Control-Allow-Credentials", "true");
+
+        return new ResponseEntity<>(headers, HttpStatus.OK);
+    }
 	
 }

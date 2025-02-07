@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 
 public class ReviewInfo {
-	private int userid;
-	private int propertyid;
+	private int userId;
+	private int propertyId;
 	private String comment;
 	private int ratings;
 }

@@ -8,7 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import java.util.function.Supplier;
 import com.pgmates.dao.AppointmentsDao;
 import com.pgmates.dao.PropertyDao;
 import com.pgmates.dao.ReviewDao;
@@ -120,8 +120,11 @@ public class UserServices implements UserServicesIF {
 	
 	public ApiResponse addReview(ReviewInfo reviewdata) {
 		
-		User user = userdao.findById(reviewdata.getUserid()).orElseThrow(()-> new ResourceNotFoundException("No user Found"));
-		Property property = property_dao.findById(reviewdata.getPropertyid()).orElseThrow(()-> new ResourceNotFoundException("No property Found"));
+		Optional<User> useropt = userdao.findById(reviewdata.getUserId());
+		User user = useropt.get(); 
+		
+		Optional<Property> propertyopt = property_dao.findById(reviewdata.getPropertyId());
+		Property property = propertyopt.get();
 		
 		Reviews review = mapper.map(reviewdata, Reviews.class);
 		review.setUser(user);
@@ -132,8 +135,13 @@ public class UserServices implements UserServicesIF {
 	}
 	
 	public ApiResponse bookAppointment( int userId,  int appointmentId) {
-		User user = userdao.findById(userId).orElseThrow(()->new ResourceNotFoundException("Invalid User!"));
-		Appointments appointment = appointment_dao.findById(appointmentId).orElseThrow(()->new ResourceNotFoundException("No appointment found"));
+		Optional<User> useropt = userdao.findById(userId);
+		Optional<Appointments> appointmentopt = appointment_dao.findById(appointmentId);
+		
+		
+		
+		User user = useropt.get(); 
+		Appointments appointment = appointmentopt.get();
 		appointment.setBooked(true);
 		appointment.setUser(user);
 		return new ApiResponse("Appointment booked successfully");

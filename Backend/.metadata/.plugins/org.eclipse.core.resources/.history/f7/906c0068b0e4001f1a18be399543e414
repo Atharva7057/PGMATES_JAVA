@@ -1,0 +1,70 @@
+package com.pgmates.controller;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import com.pgmates.dto.PropertyDetailsDto;
+import com.pgmates.dto.PropertyDto;
+import com.pgmates.dto.ReviewInfo;
+import com.pgmates.dto.UsersBookedAppointmentDto;
+import com.pgmates.service.UserServices;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
+@RestController
+@RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:5173")
+public class UserController {
+	
+    @Autowired
+    UserServices user_service;
+
+    @GetMapping("/getAllProperties")
+    //@PreAuthorize("hasRole('USER')")  // ✅ Restricting access to USER role
+    public List<PropertyDto> getAllProperties() {
+        return user_service.getAllProperties();
+    }
+
+    @GetMapping("/properties/{propertyId}")
+    //@PreAuthorize("hasRole('USER')")  // ✅ Restricting access to USER role
+    public PropertyDetailsDto getPropertyDetails(@PathVariable String propertyId) {
+        int id = Integer.parseInt(propertyId);
+        return user_service.getPropertyWithAllDetails(id);
+    }
+
+	@PostMapping("/addreview")
+	public ResponseEntity<?> addReview(@RequestBody ReviewInfo reviewdata) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(user_service.addReview(reviewdata));
+	}
+	
+	@PostMapping("/bookAppointment/{userId}/{appointmentId}")
+	public ResponseEntity<?> bookAppointment(@PathVariable int userId, @PathVariable int appointmentId){
+		return ResponseEntity.status(HttpStatus.OK).body(user_service.bookAppointment(userId, appointmentId));
+	}
+	
+	@PostMapping("/cancelAppointment/{appointmentId}")
+	public ResponseEntity<?> cancelAppointment(@PathVariable int appointmentId){
+		return ResponseEntity.status(HttpStatus.OK).body(user_service.cancelUserAppointment(appointmentId));
+	}
+	
+
+
+
+    @GetMapping("/demo")
+    public void demolist() {
+        List<String> demoList = List.of("parthavi", "ayushi", "donald duck");
+        demoList.forEach(System.out::println);
+    }
+
+	@GetMapping("/bookedAppointmentsByUserId/{userId}")
+	public  ResponseEntity<?> bookedAppointmentByUser(@PathVariable int userId) {
+		List<UsersBookedAppointmentDto> list = user_service.getBookedAppointmentsByUserId(userId);
+		return ResponseEntity.status(HttpStatus.OK).body(list);
+	}
+	
+}

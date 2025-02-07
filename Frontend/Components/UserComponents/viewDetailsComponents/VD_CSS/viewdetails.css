@@ -195,4 +195,24 @@
   background-color: #45a049;
 }
 
+#model-cancel{
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+#model-cancel:hover{
+  background-color: rgb(189, 13, 13);
+}
 
+#model-confirm{
+  background-color:  #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+#model-confirm:hover{
+  background-color: #45a049;
+}

@@ -1,0 +1,65 @@
+table {
+    /* width: 100%; */
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    text-align: center;
+    padding: 10px;
+  }
+  
+  #buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Adds spacing between buttons */
+  }
+  
+  #buttons button {
+    flex: 1; /* Makes both buttons equal width */
+    padding: 8px 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+  }
+  
+  #buttons button:first-child {
+    background-color: green;
+    color: white;
+  }
+  
+  #buttons button:first-child:hover {
+    background-color: darkgreen;
+  }
+  
+  #buttons button:last-child {
+    background-color: red;
+    color: white;
+  }
+  
+  #buttons button:last-child:hover {
+    background-color: darkred;
+  }
+  #model-cancel{
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  #model-cancel:hover{
+    background-color: rgb(189, 13, 13);
+  }
+  
+  #model-confirm{
+    background-color:  #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  #model-confirm:hover{
+    background-color: #45a049;
+  }

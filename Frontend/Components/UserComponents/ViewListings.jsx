@@ -20,7 +20,7 @@ function ViewListings() {
 
   // Handle click on "View Details" button
   function onclickViewDetails(property_id) {
-    navigate('/user/view-details?id='+ property_id);
+    navigate('/user/view-details?id=' + property_id);
   }
 
   useEffect(() => {
@@ -28,7 +28,7 @@ function ViewListings() {
       try {
         const response = await UserServices.getAllProperties();
         console.log(response.data);
-        
+
         setCards(response.data); // Assuming the response data is an array of property objects
       } catch (error) {
         console.error("Error fetching properties:", error);
@@ -40,7 +40,7 @@ function ViewListings() {
   return (
     <div>
       {/* Search Bar */}
-      <div className="search-bar">
+      <div id="search-bar">
         <input
           type="text"
           placeholder="Search"
@@ -57,30 +57,43 @@ function ViewListings() {
             <div className="card-list">
               {filteredCards.length > 0 ? (
                 filteredCards.map((card) => (
-                  <Card className="card-container" key={card.id}>
+                  <Card className="card-container" key={card.id} style={{ width: '21rem' }}>
                     <Card.Img variant="top" src={cardImage} className="card-img" />
                     <Card.Body className="card-body">
                       <Card.Title>{card.type}</Card.Title>
                       <Card.Text>
-                        <h4>{card.details}</h4>
-                        <h3>Facility: {card.amenities}</h3>
-                        <h5>Rent: {card.rent}</h5>
-                        <h5>Deposit: {card.deposit}</h5>
-                        <h5>location: {card.location}</h5>
-                        <h5>Gender: {card.forGender}</h5>
-                        {/* <div>
-                          <strong>Owner Details:</strong>
-                          <p>{card.owner.fullName}</p>
-                          <p>{card.owner.contact}</p>
-                          <p>{card.owner.email}</p>
-                        </div> */}
-                        <button
-                          className="view-details"
-                          onClick={() => onclickViewDetails(card.propertyId)}
-                        >
-                          View Details
-                        </button>
+                        <table>
+                          <tbody>
+                            <tr>
+                              <td>🏠 <strong>Facility:</strong></td>
+                              <td>{card.amenities}</td>
+                            </tr>
+                            <tr>
+                              <td>💰 <strong>Rent:</strong></td>
+                              <td>{card.rent}</td>
+                            </tr>
+                            <tr>
+                              <td>💵 <strong>Deposit:</strong></td>
+                              <td>{card.deposit}</td>
+                            </tr>
+                            <tr>
+                              <td>📍 <strong>Location:</strong></td>
+                              <td>{card.location}</td>
+                            </tr>
+                            <tr>
+                              <td>🚻 <strong>Gender:</strong></td>
+                              <td>{card.forGender}</td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </Card.Text>
+
+                      <button
+                        className="view-details"
+                        onClick={() => onclickViewDetails(card.propertyId)}
+                      >
+                        View Details
+                      </button>
                     </Card.Body>
                   </Card>
                 ))

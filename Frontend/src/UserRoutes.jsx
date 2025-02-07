@@ -9,7 +9,8 @@ import ViewDetails from "../Components/UserComponents/ViewDetails";
 import UserNavbar from "../Components/UserComponents/UserNavbar";
 import AccessDenied from '../src/AccessDenied.jsx';
 import UserLogin from '../Components/Login.jsx';
-
+import ManageAppointments from '../Components/UserComponents/ManageAppointments.jsx';
+import MyProfile from '../Components/UserComponents/MyProfile.jsx';
 const UserLayout = () => (
   <>
     <UserNavbar />
@@ -55,6 +56,8 @@ const UserRoutes = () => {
         <Route path="services" element={isUser ? <Services /> : <AccessDenied />} />
         <Route path="about" element={isUser ? <About /> : <AccessDenied />} />
         <Route path="view-details" element={isUser ? <ViewDetails /> : <AccessDenied />} />
+        <Route path="ManageAppointments" element={isUser ? <ManageAppointments /> : <AccessDenied />} />
+        <Route path="MyProfile" element={isUser ? <MyProfile /> : <AccessDenied />} />
       </Route>
 
       {/* Routes for non-authenticated users */}
