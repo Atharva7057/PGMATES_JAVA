@@ -1,0 +1,71 @@
+/* ManageUsers.css */
+
+/* Container for the entire page */
+.manage-users-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Heading styling */
+  .manage-users-container h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Table styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  /* Table Header Styling */
+  th {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+  }
+  
+  /* Table Data Styling */
+  td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Table Row hover effect */
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Empty state message */
+  .no-users {
+    color: #888;
+    font-size: 1.2rem;
+  }
+  
+  /* Button Styling */
+  button {
+    padding: 8px 16px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* Button hover effect */
+  button:hover {
+    background-color: #e60000;
+  }
+  
+  /* Loading message styling */
+  .loading-message {
+    font-size: 1.2rem;
+    color: #007bff;
+  }
+  

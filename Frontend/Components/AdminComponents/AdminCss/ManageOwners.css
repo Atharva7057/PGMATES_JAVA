@@ -1,0 +1,28 @@
+.error {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .loading-message {
+    font-style: italic;
+    color: gray;
+  }
+  
+  .container {
+    padding: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  button {
+    margin-right: 5px;
+  }
+  
