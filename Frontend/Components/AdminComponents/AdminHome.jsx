@@ -1,6 +1,6 @@
 import React from 'react'
 import '../AdminComponents/AdminCss/AdminHome.css'
-import Footer from '../Footer';
+//import Footer from '../Footer';
 console.log("on admin ");
 const adminName = "Atharva Patil"
 function AdminHome() {
@@ -28,7 +28,7 @@ function AdminHome() {
       </div>
     </div>
   </div>
-  <Footer/>
+  {/* <Footer/> */}
   </>
   )
 }
