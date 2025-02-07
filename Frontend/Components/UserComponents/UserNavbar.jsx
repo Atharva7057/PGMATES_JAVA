@@ -41,7 +41,7 @@ function UserNavbar() {
         </div>
         <div className="profile">
           <button className="profile-button" onClick={toggleTray}>
-            Tray
+          ☰
           </button>
           {isTrayOpen && (
             <div className="tray">
