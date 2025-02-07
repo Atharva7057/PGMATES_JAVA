@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import "./OwnerCSS/OwnerNav.css";
 
+
 function OwnerNav() {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTrayOpen, setIsTrayOpen] = useState(false);
 
@@ -16,6 +18,16 @@ function OwnerNav() {
 
   const closeTray = () => {
     setIsTrayOpen(false);
+  };
+
+  const logout = () => {
+    // sessionStorage.removeItem("jwtToken");
+    // sessionStorage.removeItem("userDetails");
+    // sessionStorage.removeItem("userRole");
+    sessionStorage.clear();
+    console.log("logout clicked");
+
+    navigate("/login?isLogin=true");
   };
 
   return (
@@ -75,7 +87,7 @@ function OwnerNav() {
                 </Link>
               </li>
               <li>
-                <button id = "logoutbtn">Logout</button>
+                <button id = "logoutbtn" onClick={logout}>Logout</button>
               </li>
             </ul>
           </div>

@@ -1,116 +1,78 @@
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./OwnerCSS/PropertyListings.css";
-
+import OwnerServices from "../../Services/OwnerServices/ownerServices.js";
+import image from '../../Images/room.jpg';
 const PropertyListings = () => {
-  const [properties, setProperties] = useState([
-    {
-      id: 1,
-      title: "3BHK Apartment in Downtown",
-      status: "Available",
-      price: "$500,000",
-      area: "1200 sqft",
-      description:
-        "A spacious 3BHK apartment with modern amenities in the heart of Downtown.",
-    },
-    {
-      id: 2,
-      title: "2BHK Villa with Garden",
-      status: "Available",
-      price: "$350,000",
-      area: "1500 sqft",
-      description:
-        "A beautiful 2BHK villa with a garden and quiet surroundings perfect for families.",
-    },
-    {
-      id: 3,
-      title: "Luxury Penthouse in City Center",
-      status: "Available",
-      price: "$1,200,000",
-      area: "2500 sqft",
-      description:
-        "A luxurious penthouse with stunning city views and top-notch facilities.",
-    },
-  ]);
+  const [properties, setProperties] = useState([]);
 
-  const markUnavailable = (id) => {
-    setProperties((prev) =>
-      prev.map((property) =>
-        property.id === id ? { ...property, status: "Unavailable" } : property
-      )
-    );
-  };
+  useEffect(() => {
+    const fetchProperties = async () => {
+      const propertiesData = await OwnerServices.getAllPropertiesByOwner();
+      setProperties(propertiesData);
+    };
+    fetchProperties();
+  }, []);
 
   const deleteProperty = (id) => {
-    setProperties((prev) => prev.filter((property) => property.id !== id));
+    console.log("Delete property with ID:", id);
   };
 
   const updateProperty = (id) => {
-    const updatedTitle = prompt("Enter the new title for the property:");
-    setProperties((prev) =>
-      prev.map((property) =>
-        property.id === id ? { ...property, title: updatedTitle } : property
-      )
-    );
+    console.log("Update property with ID:", id);
+  };
+
+  const markUnavailable = (id) => {
+    console.log("Mark property as unavailable with ID:", id);
   };
 
   return (
-    <div className="container">
-      <h2>Properties Listed by You</h2>
-      <div className="property-cards">
+    <div className="container mt-4">
+      <h2 className="text-center mb-4">Your Listed Properties</h2>
+      <div className="row">
         {properties.map((property) => (
-          <div key={property.id} className="card">
-            <div className="card-body">
-              <h5 className="card-title">{property.title}</h5>
-              <p className="card-text">
-                <strong>Status:</strong> {property.status}
-              </p>
-              <p className="card-text">
-                <strong>Price:</strong> {property.price}
-              </p>
-              <p className="card-text">
-                <strong>Area:</strong> {property.area}
-              </p>
-              <p className="card-text">
-                <strong>Description:</strong> {property.description}
-              </p>
-              <button
-                style={{
-                  backgroundColor: "blue",
-                  color: "white",
-                  padding: "10px 20px",
-                  borderRadius: "5px",
-                }}
-                onClick={() => updateProperty(property.id)}
-              >
-                Update
-              </button>
+        <div id="outer-container">
 
-              <button
-                style={{
-                  backgroundColor: "red",
-                  color: "white",
-                  padding: "10px 20px",
-                  borderRadius: "5px",
-                }}
-                onClick={() => deleteProperty(property.id)}
-              >
-                Delete
-              </button>
-
-              <button
-                style={{
-                  backgroundColor: "green",
-                  color: "white",
-                  padding: "10px 20px",
-                  borderRadius: "5px",
-                }}
-                onClick={() => markUnavailable(property.id)}
-              >
-                Mark as Unavailable
-              </button>
+        
+          <div key={property.id} className="col-md-12 mb-12">
+            <div className="card shadow-sm h-100">
+              
+              <div className="card-body">
+              <img
+                src={image}
+                // className="card-img-top"
+                alt={property.title}
+                style={{height:"150px", width:"250px", float:"right", borderRadius:"5px"}}
+              />
+                <h5 className="card-title">{property.location+","+property.address.city}</h5>
+                <p className="card-text">
+                  <strong>Address:</strong> {property.address.addressLine1+","+property.address.addressLine1+","+property.address.addressLine2+"," +property.address.city}
+                </p>
+                <p className="card-text">
+                  <strong>Rent:</strong>Rs. {property.rent} 
+                </p>
+                <p className="card-text">
+                  <strong>Deposit:</strong> {property.deposit} 
+                </p>
+                
+              </div>
+              <div className="card-footer d-flex justify-content-between">
+                <button onClick={() => updateProperty(property.id)} className="btn-primary">
+                  Update
+                </button>
+                <button  onClick={() => deleteProperty(property.id)}>
+                  Delete
+                </button>
+                <button  onClick={() => markUnavailable(property.id)} className="btn-warning">
+                  Unavailable
+                </button>
+                <button  onClick={() => markUnavailable(property.id)} className="btn-primary">
+                  Manage Property
+                </button>
+              </div>
             </div>
           </div>
+        </div>
         ))}
       </div>
     </div>

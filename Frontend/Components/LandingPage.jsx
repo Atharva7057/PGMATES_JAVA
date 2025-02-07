@@ -1,6 +1,6 @@
 import React from 'react'
 import '../CSS/LandingPage.css';
-import Footer from './Footer';
+//import Footer from './Footer';
 import { useNavigate } from 'react-router-dom';
 function LandingPage() {
     const navigate = useNavigate();
@@ -36,7 +36,7 @@ function LandingPage() {
                     </div>
                 </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </>
     );
 }

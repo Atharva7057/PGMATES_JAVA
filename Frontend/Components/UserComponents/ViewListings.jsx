@@ -58,7 +58,7 @@ function ViewListings() {
               {filteredCards.length > 0 ? (
                 filteredCards.map((card) => (
                   <Card className="card-container" key={card.id} style={{ width: '21rem' }}>
-                    <Card.Img variant="top" src={cardImage} className="card-img" />
+                    <Card.Img variant="top" src={`../../Images/${card.image}`} className="card-img" />
                     <Card.Body className="card-body">
                       <Card.Title>{card.type}</Card.Title>
                       <Card.Text>

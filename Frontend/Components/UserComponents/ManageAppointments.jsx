@@ -79,7 +79,7 @@ function ManageAppointments() {
                 <td>
                   <div id='buttons' className="d-flex gap-2">
                     <button variant="info" onClick={() => handleViewDetails(appointment.propertyId)}>
-                      View Details
+                       Details
                     </button>
                     <button variant="danger" onClick={() => handleShowModal(appointment)}>
                       Cancel

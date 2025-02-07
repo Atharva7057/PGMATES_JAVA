@@ -1,15 +1,15 @@
 import React from 'react'
 import '../AdminComponents/AdminCss/AdminHome.css'
-import Footer from '../Footer';
+//import Footer from '../Footer';
 console.log("on admin ");
-const adminName = "Atharva Patil"
+const admin = JSON.parse(sessionStorage.getItem("userDetails"));
 function AdminHome() {
 
   return (
     <>
     <div id="admin-home">
     <div id="welcome-container">
-      <h1>Welcome Back, {adminName}!</h1>
+      <h1>Welcome Back, {admin.firstName}!</h1>
       <p>Your dashboard is ready to help you manage the platform efficiently.</p>
       <hr />
       <div id="task-cards">
@@ -28,7 +28,7 @@ function AdminHome() {
       </div>
     </div>
   </div>
-  <Footer/>
+  {/* <Footer/> */}
   </>
   )
 }

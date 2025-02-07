@@ -10,9 +10,6 @@ function UserNavbar() {
   };
 
   const logout = () => {
-    // sessionStorage.removeItem("jwtToken");
-    // sessionStorage.removeItem("userDetails");
-    // sessionStorage.removeItem("userRole");
     sessionStorage.clear();
     console.log("logout clicked");
 

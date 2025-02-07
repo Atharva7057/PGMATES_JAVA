@@ -11,18 +11,23 @@
     align-items: center;
     height: auto; /* Full viewport height */
     width: 100%;   /* Full width of the screen */
+    
 }
 
 .card {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .card-body {
   padding: 1px;
+ 
 }
-
+#outer-container{
+  margin-bottom: 10px;
+}
 .card-title {
   font-size: 1.5rem;
   font-weight: bold;

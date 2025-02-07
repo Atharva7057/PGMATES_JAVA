@@ -7,10 +7,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ApiResponse {
+public class ApiResponse<T> {
 	private String message;
 	private int count;
-	private List<UserAdminDto> data;
+	private List<T> data;
 
 	public ApiResponse(String message) {
 		this.message = message;
@@ -22,7 +22,7 @@ public class ApiResponse {
 //	    this.data = data;
 //	}
 
-	public ApiResponse(String message, int count, List<UserAdminDto> data) {
+	public ApiResponse(String message, int count, List<T> data) {
 	    this.message = message;
 	    this.count = count;
 	    this.data = data;
