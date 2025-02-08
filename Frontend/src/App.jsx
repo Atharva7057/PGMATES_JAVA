@@ -21,8 +21,6 @@ function App() {
         <Route path="/login" element ={<Login/>}></Route>
         <Route path="/owner-login" element ={<OwnerLogin/>}></Route>
         <Route path="/admin-login" element ={<AdminLogin/>}></Route>
-
-
         <Route path="/user/*" element={<UserRoutes />} />
         <Route path="/owner/*" element={<OwnerRoutes/>}/>
         <Route path="/admin/*" element ={<AdminRoutes/>}/>
