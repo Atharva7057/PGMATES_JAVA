@@ -5,9 +5,10 @@ import { useLocation } from "react-router-dom";
 import UserServices from '../../Services/UserServices/uservice.js'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Modal, Button ,Card} from 'react-bootstrap';
+import { Modal, Button, Card, Container, Row, Col, Table, Image } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// import "bootstrap/dist/css/bootstrap.min.css";
 const ViewDetails = () => {
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();
@@ -91,35 +92,90 @@ const ViewDetails = () => {
 
   return (
     <>
+
       <div id="view-details">
-        <section id="property-details">
-          <h2>Property Details</h2>
-          <p><strong>Amenities:</strong> {propertyDetails.amenities}</p>
-          <p><strong>Rent:</strong> ₹{propertyDetails.rent}/month</p>
-          <p><strong>Deposit:</strong> ₹{propertyDetails.deposit}</p>
-          <p><strong>Location:</strong> {propertyDetails.location}</p>
-          <p><strong>Type:</strong> {propertyDetails.type}</p>
-          <p><strong>Furnished Type:</strong> {propertyDetails.furnishType}</p>
-          <p><strong>Nearby Places:</strong> {propertyDetails.nearByPlaces}</p>
-          <p><strong>Capacity:</strong> {propertyDetails.capacity}</p>
-          <p><strong>Gender:</strong> {propertyDetails.forGender}</p>
-        </section>
+        <h2 id="proHeading"> 📝 Property Details</h2>
+        <div className="card-body d-flex align-items-center" id='outer'>
+          <table className="ManageProperty-table">
+            <tbody>
+              <tr>
+                <td><strong>📍 Location:</strong></td>
+                <td>{propertyDetails.location}</td>
+              </tr>
+              <tr>
+                <td><strong>🏠 Type:</strong></td>
+                <td>{propertyDetails.type}</td>
+              </tr>
+              <tr>
+                <td><strong>💰 Rent:</strong></td>
+                <td>Rs. {propertyDetails.rent}</td>
+              </tr>
+              <tr>
+                <td><strong>🏦 Deposit:</strong></td>
+                <td>Rs. {propertyDetails.deposit}</td>
+              </tr>
+              <tr>
+                <td><strong>👨‍👩‍👧‍👦 Capacity:</strong></td>
+                <td>{propertyDetails.capacity} persons</td>
+              </tr>
+              <tr>
+                <td><strong>🛏️ Furnish Type:</strong></td>
+                <td>{propertyDetails.furnishType}</td>
+              </tr>
+              <tr>
+                <td><strong>🛜 Amenities:</strong></td>
+                <td>{propertyDetails.amenities}</td>
+              </tr>
+              <tr>
+                <td><strong>🏥 Nearby Places:</strong></td>
+                <td>{propertyDetails.nearByPlaces}</td>
+              </tr>
+              <tr>
+                <td><strong>👤 For:</strong></td>
+                <td>{propertyDetails.forGender} </td>
+              </tr>
+            </tbody>
 
-        <section id="property-details">
+          </table>
+
+          <img
+            src={`../../Images/${propertyDetails.image}`}
+            style={{ height: "300px", width: "400px", borderRadius: "5px", marginLeft: "20px" }}
+            alt="Room"
+          />
+        </div>
+        
+
+        {/* <Container> */}
+      <Row>
+        {/* Owner Details */}
+        <Col md={6}>
           <h2>Owner Details</h2>
-          <p><strong>Name: </strong>{Owner.firstName + " " + Owner.lastName}</p>
-          <p><strong>Email: </strong>{Owner.email}</p>
-          <p><strong>Contact: </strong>{Owner.contact}</p>
-        </section>
+          <Table  hover className="details-table">
+            <tbody>
+              <tr><td><strong>Name</strong></td><td>{Owner.firstName + " " + Owner.lastName}</td></tr>
+              <tr><td><strong>Email</strong></td><td>{Owner.email}</td></tr>
+              <tr><td><strong>Contact</strong></td><td>{Owner.contact}</td></tr>
+            </tbody>
+          </Table>
+        </Col>
 
-        <section id="property-details">
-          <h2>Property Address</h2>
-          <p><strong>AddressLine1: </strong>{address.addressLine1}</p>
-          <p><strong>AddressLine2: </strong>{address.addressLine2}</p>
-          <p><strong>City: </strong>{address.city}</p>
-          <p><strong>State: </strong>{address.state}</p>
-          <p><strong>Pincode: </strong>{address.pincode}</p>
-        </section>
+        {/* Address Details */}
+        <Col md={6}>
+          <h2> 📍Address</h2>
+  
+          <Table  hover className="details-table">
+            <tbody>
+              <tr><td><strong>Address Line 1</strong></td><td>{address.addressLine1}</td></tr>
+              <tr><td><strong>Address Line 2</strong></td><td>{address.addressLine2}</td></tr>
+              <tr><td><strong>City</strong></td><td>{address.city}</td></tr>
+              <tr><td><strong>State</strong></td><td>{address.state}</td></tr>
+              <tr><td><strong>Pincode</strong></td><td>{address.pincode}</td></tr>
+            </tbody>
+          </Table>
+        </Col>
+      </Row>
+    {/* </Container> */}
 
         <section id="appointment-slots">
           <h2>Available Appointment Slots</h2>
@@ -174,11 +230,11 @@ const ViewDetails = () => {
               onChange={(e) => setNewReview({ ...newReview, ratings: +e.target.value })}
               required
             />
-            <div style={{display:"flex", gap:"10px"}}>
+            <div style={{ display: "flex", gap: "10px" }}>
               <button type="submit">Submit Reviews</button>
               <button type="submit" onClick={() => setShowReviews(true)}>Show Review</button>
             </div>
-            
+
           </form>
         </div>
       </div>
@@ -208,11 +264,11 @@ const ViewDetails = () => {
         <Modal.Body>
           {reviews.length > 0 ? (
             reviews.map((review, index) => (
-              
-              
+
+
               <Card key={index} className="mb-2">
                 <Card.Body>
-                  <Card.Text>{review.user.firstName+": "+review.comment}</Card.Text>
+                  <Card.Text>{review.user.firstName + ": " + review.comment}</Card.Text>
                   <Card.Subtitle className="text-muted">⭐ {review.ratings}/5</Card.Subtitle>
                 </Card.Body>
               </Card>

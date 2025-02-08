@@ -1,6 +1,5 @@
 package com.pgmates.controller;
 
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,24 +23,25 @@ import com.pgmates.service.AuthService;
 @CrossOrigin(origins = "http://localhost:5173")
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
-    
-    @Autowired
-    private JwtUtil jwtutil;
+	@Autowired
+	private AuthService authService;
 
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody UserDto userDTO) {
-        ApiResponse registeredUser = authService.registerUser(userDTO);
-        if(!registeredUser.getMessage().equals("User Registered Successfully!")) {
-        	return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(registeredUser);
-        }
-        
-        return ResponseEntity.ok(registeredUser);
-    }
-    @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody UserDto userDTO) {
-        return ResponseEntity.ok(authService.loginUser(userDTO));
-    }
-    
+	@Autowired
+	private JwtUtil jwtutil;
+
+	@PostMapping("/register")
+	public ResponseEntity<?> registerUser(@RequestBody UserDto userDTO) {
+		ApiResponse registeredUser = authService.registerUser(userDTO);
+		if (!registeredUser.getMessage().equals("User Registered Successfully!")) {
+			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(registeredUser);
+		}
+
+		return ResponseEntity.ok(registeredUser);
+	}
+
+	@PostMapping("/login")
+	public ResponseEntity<?> loginUser(@RequestBody UserDto userDTO) {
+		return ResponseEntity.ok(authService.loginUser(userDTO));
+	}
+
 }

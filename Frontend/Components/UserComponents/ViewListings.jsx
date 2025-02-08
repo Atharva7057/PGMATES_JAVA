@@ -57,17 +57,18 @@ function ViewListings() {
             <div className="card-list">
               {filteredCards.length > 0 ? (
                 filteredCards.map((card) => (
-                  <Card className="card-container" key={card.id} style={{ width: '21rem' }}>
-                    <Card.Img variant="top" src={`../../Images/${card.image}`} className="card-img" />
+                  <Card className="card-container" key={card.id} style={{ width: '21rem'}}>
+                    <Card.Img variant="top" src={`../../Images/${card.image}`} className="card-img" style={{height:"170px"}} />
                     <Card.Body className="card-body">
                       <Card.Title>{card.type}</Card.Title>
                       <Card.Text>
                         <table>
                           <tbody>
-                            <tr>
-                              <td>🏠 <strong>Facility:</strong></td>
-                              <td>{card.amenities}</td>
+                          <tr>
+                              <td>📍 <strong>Location:</strong></td>
+                              <td>{card.location}</td>
                             </tr>
+                            
                             <tr>
                               <td>💰 <strong>Rent:</strong></td>
                               <td>{card.rent}</td>
@@ -76,14 +77,16 @@ function ViewListings() {
                               <td>💵 <strong>Deposit:</strong></td>
                               <td>{card.deposit}</td>
                             </tr>
-                            <tr>
-                              <td>📍 <strong>Location:</strong></td>
-                              <td>{card.location}</td>
-                            </tr>
+                            
                             <tr>
                               <td>🚻 <strong>Gender:</strong></td>
                               <td>{card.forGender}</td>
                             </tr>
+                            <tr>
+                              <td>🏠 <strong>Furnished:</strong></td>
+                              <td>{card.furnishType}</td>
+                            </tr>
+
                           </tbody>
                         </table>
                       </Card.Text>
@@ -94,6 +97,17 @@ function ViewListings() {
                       >
                         View Details
                       </button>
+                      {card.isavailable ? <button style={
+                        {
+                          backgroundColor: "green", color: "white",
+                          padding: "6px 15px",
+                          float: "right"
+                        }}>Available</button> : <button style={
+                          {
+                            backgroundColor: "red", color: "white",
+                            padding: "6px 15px",
+                            float: "right"
+                          }} >Not Available</button>}
                     </Card.Body>
                   </Card>
                 ))

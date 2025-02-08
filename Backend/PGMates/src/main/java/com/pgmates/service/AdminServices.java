@@ -32,15 +32,7 @@ public class AdminServices implements AdminServicesIF {
     @Autowired
     ModelMapper modelMapper;
 
-//    @Override
-//    public List<PropertyAdminDto> getAllProperties() {
-//        List<Property> properties = propertyDao.findAll();
-//        
-//        // Convert the properties to DTOs and return
-//        return properties.stream()
-//                         .map(property -> modelMapper.map(property, PropertyAdminDto.class))
-//                         .collect(Collectors.toList());
-//    }
+
     
     @Override
     public List<PropertyAdminDto> getAllProperties() {

@@ -1,0 +1,88 @@
+package com.pgmates.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.pgmates.dto.AddAppointmentSlotDto;
+import com.pgmates.dto.ApiResponse;
+import com.pgmates.dto.PropertyDto;
+import com.pgmates.dto.PropertyRequest;
+import com.pgmates.service.OwnerServices;
+
+@RestController
+@RequestMapping("/owner")
+@CrossOrigin(origins = "http://localhost:5173")
+public class OwnerController {
+	@Autowired
+	OwnerServices ownerService;
+
+	@PostMapping("/{owner_id}/properties/register")
+	public ResponseEntity<?> registerProperty(@PathVariable int owner_id,
+			@RequestBody PropertyRequest propertyRequestDTO) {
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(ownerService.registerProperty(owner_id, propertyRequestDTO));
+	}
+
+	@GetMapping("/{owner_id}/properties")
+	public List<PropertyDto> getPropertiesByOwner(@PathVariable int owner_id) {
+		return ownerService.getPropertiesByOwner(owner_id);
+	}
+
+	// Update a property owned by a specific owner
+	@PutMapping("/{owner_id}/properties/{propertyId}")
+	public ResponseEntity<?> updateProperty(@PathVariable int owner_id, @PathVariable int propertyId,
+			@RequestBody PropertyRequest propertyRequest) {
+		ApiResponse updatedProperty = ownerService.updateProperty(owner_id, propertyId, propertyRequest);
+		return ResponseEntity.ok(updatedProperty);
+	}
+
+	// Delete a property owned by a specific owner
+	@DeleteMapping("/{owner_id}/properties/{propertyId}")
+	public ResponseEntity<ApiResponse> deleteProperty(@PathVariable int owner_id, @PathVariable int propertyId) {
+		ApiResponse response = ownerService.deleteProperty(owner_id, propertyId);
+		return ResponseEntity.ok(response); // Return the response
+	}
+
+	@PostMapping("/addAppointmentSlot")
+	public ResponseEntity<?> addAppointmentSlot(@RequestBody AddAppointmentSlotDto appointmentDto) {
+
+		ApiResponse resp = ownerService.addAppointmentSlot(appointmentDto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(resp);
+
+	}
+
+	@DeleteMapping("/deleteAppointmentSlot/{appointmentID}")
+	public ResponseEntity<?> deleteAppointmentSlot(@PathVariable int appointmentID) {
+		return ResponseEntity.status(HttpStatus.OK).body(ownerService.deleteAppointmentSlot(appointmentID));
+	}
+
+	@PutMapping("update/{appointmentId}")
+	public ResponseEntity<?> updateAppointmentSlot(@PathVariable int appointmentId,
+			@RequestBody AddAppointmentSlotDto appointmentSlotDto) {
+		ApiResponse response = ownerService.updateAppointmentSlot(appointmentId, appointmentSlotDto);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+
+	@PostMapping("/cancelAppointment/{appointmentId}")
+	public ResponseEntity<?> cancelAppointment(@PathVariable int appointmentId) {
+		ApiResponse response = ownerService.cancelAppointment(appointmentId);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+
+	}
+
+}

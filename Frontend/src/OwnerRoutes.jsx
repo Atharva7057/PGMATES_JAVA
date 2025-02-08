@@ -14,7 +14,8 @@ import Profile from "../Components/OwnerComponents/profile";
 import data from "../Components/OwnerComponents/data";
 import AccessDenied from '../src/AccessDenied.jsx';
 import UserLogin from '../Components/Login.jsx';
-
+import ManageProperty from '../Components/OwnerComponents/ManageProperty.jsx';
+import UpdateProperty  from '../Components/OwnerComponents/UpdateProperty.jsx';
 // import AboutUs from "../Components/OwnerComponents/Aboutus";
 
 // import {NavBarSeller} from "../Components/OwnerComponents/NavBarSeller.jsx";
@@ -67,6 +68,8 @@ function OwnerRoutes() {
         <Route path="registerproperty" element={isOwner ? <RegisterProperty /> : <AccessDenied />} />
         <Route path="contact" element={isOwner ? <ContactUs /> : <AccessDenied />} />
         <Route path="profile" element={isOwner ? <Profile /> : <AccessDenied />} />
+        <Route path="ManageProperty" element={isOwner ? <ManageProperty /> : <AccessDenied />} />
+        <Route path="UpdateProperty" element={isOwner ? < UpdateProperty/> : <AccessDenied />} />
       </Route>
 
       {/* Routes for non-authenticated users */}
