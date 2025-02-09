@@ -12,6 +12,7 @@ import com.pgmates.dto.PropertyDto;
 import com.pgmates.dto.PropertyRequest;
 
 public interface OwnerServicesIF {
+	
 	public ApiResponse addAppointmentSlot(AddAppointmentSlotDto appointmentSlotDto);
 
 	public ApiResponse deleteAppointmentSlot(int appointmentId);
@@ -33,7 +34,5 @@ public interface OwnerServicesIF {
 	public List<BookedAppointmentsDto> getBookedAppointmentsByOwnerId(int ownerId);
 	
 	public AvailabilityResponse togglePropertyAvailability(int propertyId);
-	
-
 
 }

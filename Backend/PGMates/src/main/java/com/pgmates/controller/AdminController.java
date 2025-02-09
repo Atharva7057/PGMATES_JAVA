@@ -98,4 +98,9 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
+    
+    @GetMapping("/getPropertyById/{propertyId}")
+    public ResponseEntity<?> getPropertyById(@PathVariable int propertyId){
+    	return ResponseEntity.status(HttpStatus.OK).body(adminServices.getPropertyWithAllDetails(propertyId));
+    }
 }

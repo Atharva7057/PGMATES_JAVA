@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../CSS/About.css';
-import image1 from '../../Images/profile.jpg';
+import image1 from '../../Images/Atharva.png';
 import UserNavbar from './UserNavbar';
 function About() {
+  const [team,setTeam] = useState([
+      {name:"Parthavi Chavan",image:""},
+      {name:"Pranjal Chirmade",image:"pranjal.jpg"},
+      {name:"Atharva Patil",image:"Atharva.png"},
+      {name:"Ayushi Yadav",image:""},
+      {name:"Rupali Kumari",image:""}
+    ]);
   return (
     <>
    
@@ -41,14 +48,14 @@ function About() {
       <div>
         <h3 className="teamTitle">Meet Our Team</h3>
         <div className="teamContainer">
-          {["Parthavi Chavan", "Pranjal Chirmade", "Atharva Patil", "Ayushi Yadav", "Rupali Kumari"].map((name) => (
-            <div key={name} className="teamCard">
+          {team.map((member) => (
+            <div key={member} className="card">
               <img
-                src={image1} // Use the imported image here
-                alt={name}
+                src={`../../Images/${member.image}`} // Use the imported image here
+                alt={member.name}
                 className="teamImage"
               />
-              <p className="teamName">{name}</p>
+              <p className="teamName">{member.name}</p>
             </div>
           ))}
         </div>

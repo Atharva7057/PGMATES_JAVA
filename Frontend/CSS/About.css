@@ -102,8 +102,8 @@ html, body {
 
 /* Team Member Image */
 .teamImage {
-  width: 300px; /* Larger size for better visuals */
-  height: 200px; /* Maintain aspect ratio */
+  width: 200px; /* Larger size for better visuals */
+  height: 190px; /* Maintain aspect ratio */
   object-fit: cover; /* Keep the image proportionate */
   margin-bottom: 10px;
 }

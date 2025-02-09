@@ -38,15 +38,11 @@
     <fullyQualifiedTypeName name="com.pgmates.dao.AddressDao"/>
     <fullyQualifiedTypeName name="com.pgmates.dto.PropertyDto"/>
     <fullyQualifiedTypeName name="com.pgmates.dto.PropertyDetailsDto"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
     <fullyQualifiedTypeName name="lombok.Getter"/>
     <fullyQualifiedTypeName name="lombok.Setter"/>
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.Query"/>
     <fullyQualifiedTypeName name="org.springframework.data.repository.query.Param"/>
     <fullyQualifiedTypeName name="com.pgmates.dto.AppointmentsDto"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
-    <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
-    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
     <fullyQualifiedTypeName name="com.pgmates.entity.Appointments"/>
     <fullyQualifiedTypeName name="com.pgmates.dto.BookedAppointmentsDto"/>
     <fullyQualifiedTypeName name="com.pgmates.dto.UserDto"/>
@@ -60,4 +56,8 @@
     <fullyQualifiedTypeName name="org.springframework.scheduling.annotation.Async"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.pgmates.emailService.EmailService"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
+    <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
+    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
 </qualifiedTypeNameHistroy>

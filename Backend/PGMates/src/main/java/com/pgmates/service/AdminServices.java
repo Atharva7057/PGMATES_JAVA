@@ -11,11 +11,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.pgmates.dao.PropertyDao;
 import com.pgmates.dao.UserDao;
 import com.pgmates.dto.ApiResponse;
+import com.pgmates.dto.AppointmentsDto;
 import com.pgmates.dto.PropertyAdminDto;
+import com.pgmates.dto.PropertyDetailsDto;
+import com.pgmates.dto.ReviewsDto;
 import com.pgmates.dto.UserAdminDto;
+import com.pgmates.dto.UserDto;
 import com.pgmates.entity.Property;
 import com.pgmates.enums.Role;
+import com.pgmates.exceptions.ResourceNotFoundException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -134,5 +140,56 @@ public class AdminServices implements AdminServicesIF {
             return new ApiResponse("Owner not found");
         }
     }
+    
+    public PropertyDetailsDto getPropertyWithAllDetails(int pid) {
+		  // Fetch property by ID
+	    Optional<Property> propertyOpt = propertyDao.findById(pid);
+
+	    // If property is not found, handle the exception
+	    if (propertyOpt.isEmpty()) {
+	        throw new ResourceNotFoundException("Property not found for ID: " + pid);
+	    }
+
+	    // Get the Property entity
+	    Property property = propertyOpt.get();
+
+	    // Map Property entity to PropertyDetailsDto
+	    PropertyDetailsDto propertyDetails = modelMapper.map(property, PropertyDetailsDto.class);
+
+	    // Map Owner entity to OwnerDto
+	    UserDto userdto = modelMapper.map(property.getOwner(), UserDto.class);
+	    propertyDetails.setOwner(userdto);
+	    
+	    
+	    List<ReviewsDto> reviewsDtoList = new ArrayList<>();
+	 // Iterate over each review and map it to ReviewsDto
+//	    property.getReviews().forEach(review -> {
+//	        // Map User entity to UserDtoForReview
+//	        UserDto userDto = modelMapper.map(review.getUser(), UserDto.class);
+//
+//	        // Create a new ReviewsDto and add it to the list
+//	        ReviewsDto reviewDto = new ReviewsDto(
+//	            review.getReviewId(),
+//	            userDto,
+//	            review.getComment(),
+//	            review.getRatings()
+//	        );
+//	        reviewsDtoList.add(reviewDto);
+//	    });
+
+	    // Set the reviewsDtoList to the propertyDetails DTO
+//	    propertyDetails.setReviews(reviewsDtoList);
+	    
+	    
+//	    List<AppointmentsDto> appointmentsDtoList = new ArrayList<>();
+//	    property.getAppointments().forEach(appointment -> {
+//	        AppointmentsDto appointmentDto = modelMapper.map(appointment, AppointmentsDto.class);
+//	        appointmentsDtoList.add(appointmentDto);
+//	    });
+//	    propertyDetails.setAppointments(appointmentsDtoList);
+	    
+	    
+		return propertyDetails;
+	}
    
 }

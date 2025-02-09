@@ -16,12 +16,6 @@ public class ApiResponse<T> {
 		this.message = message;
 	}
 
-//	public ApiResponse(String message, int count, List<UserDto> data) {
-//	    this.message = message;
-//	    this.count = count;
-//	    this.data = data;
-//	}
-
 	public ApiResponse(String message, int count, List<T> data) {
 	    this.message = message;
 	    this.count = count;

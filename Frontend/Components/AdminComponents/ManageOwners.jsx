@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 import './AdminCss/ManageOwners.css';
-
+import adminServices from '../../Services/AdminServices/adminServices';
 const ManageOwners = () => {
   const [owners, setOwners] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,31 +10,21 @@ const ManageOwners = () => {
   const [selectedOwner, setSelectedOwner] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  // Function to fetch owners
-  const fetchOwners = () => {
-    const token = localStorage.getItem('token');
-    setLoading(true);
-    setError('');
-    axios
-      .get('http://localhost:8080/admin/getAllOwners', {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        if (response.data && response.data.message === 'Owners retrieved successfully') {
-          setOwners(response.data.data);
-        } else {
-          setError('Failed to load owners. Please try again later.');
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching owners:', error);
-        setError('There was an error fetching the owner data. Please try again later.');
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+  const fetchOwners = async () => {
+    try {
+      setLoading(true); // Start loading
+      const response = await adminServices.getAllOwners();
+      console.log('Owners:', response);
+      setOwners(response.data || []); // Ensure response has data
+    } catch (error) {
+      console.error('Error fetching owners:', error);
+      setError('Failed to load owners');
+    } finally {
+      setLoading(false); // Ensure loading is stopped
+    }
   };
 
+  // Call fetchOwners only once when the component mounts
   useEffect(() => {
     fetchOwners();
   }, []);
@@ -79,8 +69,11 @@ const ManageOwners = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Name</th>
+              <th>FirstName</th>
+              <th>LastName</th>
               <th>Email</th>
+              <th>Contact</th>
+              <th>Gender</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -93,10 +86,13 @@ const ManageOwners = () => {
               owners.map((owner) => (
                 <tr key={owner.userId}>
                   <td>{owner.userId}</td>
-                  <td>{owner.firstName} {owner.lastName}</td>
+                  <td>{owner.firstName} </td>
+                  <td>{owner.lastName}</td>
                   <td>{owner.email}</td>
+                  <td>{owner.contact}</td>
+                  <td>{owner.gender}</td>
                   <td>
-                    <button onClick={() => handleViewDetails(owner.userId)}>View Details</button>
+                    {/* <button onClick={() => handleViewDetails(owner.userId)}>View Details</button> */}
                     <button onClick={() => deleteOwner(owner.userId)}>Delete</button>
                   </td>
                 </tr>
@@ -107,19 +103,34 @@ const ManageOwners = () => {
       )}
 
       {/* Modal for Owner Details */}
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Owner Details" ariaHideApp={false}>
-        <h2>Owner Details</h2>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Owner Details"
+        ariaHideApp={false}
+        className="modal-content"
+        overlayClassName="modal-overlay"
+      >
+        <div className="modal-header">
+          <h2 className="modal-title">Owner Details</h2>
+          <button className="close-button" onClick={closeModal}>&times;</button>
+        </div>
+
         {selectedOwner && (
-          <div>
+          <div className="modal-body">
             <p><strong>Name:</strong> {selectedOwner.firstName} {selectedOwner.lastName}</p>
             <p><strong>Email:</strong> {selectedOwner.email}</p>
             <p><strong>Contact:</strong> {selectedOwner.contact}</p>
             <p><strong>Gender:</strong> {selectedOwner.gender}</p>
             {selectedOwner.address && <p><strong>Address:</strong> {selectedOwner.address}</p>}
-            <button onClick={closeModal}>Close</button>
           </div>
         )}
+
+        <div className="modal-footer">
+          <button className="btn btn-secondary" onClick={closeModal}>Close</button>
+        </div>
       </Modal>
+
     </div>
   );
 };

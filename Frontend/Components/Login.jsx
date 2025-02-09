@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../CSS/Login.css';  // Assuming your CSS file styles the page
 import { verify,registerUser } from '../Services/authenticate';
 import { useNavigate } from 'react-router-dom';
@@ -153,6 +153,10 @@ function UserLogin() {
     
    // Switch to login view after successful signup
   }
+
+  useEffect(()=>{
+    sessionStorage.clear();
+  })
   
   return (
     <div className="login-container">

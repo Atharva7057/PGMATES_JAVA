@@ -1,7 +1,6 @@
 import React from 'react'
 import '../AdminComponents/AdminCss/AdminHome.css'
 //import Footer from '../Footer';
-console.log("on admin ");
 const admin = JSON.parse(sessionStorage.getItem("userDetails"));
 function AdminHome() {
 
