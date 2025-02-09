@@ -24,6 +24,7 @@ import com.pgmates.dto.PropertyDto;
 import com.pgmates.dto.PropertyRequest;
 import com.pgmates.dto.ReviewsDto;
 import com.pgmates.dto.UserDto;
+import com.pgmates.emailService.EmailService;
 import com.pgmates.entity.Address;
 import com.pgmates.entity.Appointments;
 import com.pgmates.entity.Property;
@@ -49,6 +50,9 @@ public class OwnerServices implements OwnerServicesIF {
 
 	@Autowired
 	UserDao userdao;
+	
+	@Autowired
+	EmailService emailService;
 
 	@Override
 	public ApiResponse addAppointmentSlot(AddAppointmentSlotDto appointmentSlotDto) {
@@ -124,10 +128,32 @@ public class OwnerServices implements OwnerServicesIF {
 		if (!appointment.isBooked()) {
 			return new ApiResponse("Appointment is already not booked!");
 		}
-
+		User user = appointment.getUser();
+		User owner = appointment.getOwner();
+		
 		appointment.setBooked(false);
 		appointment.setUser(null);
 		appointmentDao.save(appointment);
+		
+		try {
+        	StringBuilder msg = new StringBuilder();
+        	msg = msg.append("<p>Hello ").append(user.getFirstName()).append(",</p>")
+    		        .append("<p>Your appointment with ").append(owner.getFirstName()).append(" stands CANCELLED")
+    		        .append("<strong>Details</strong><br>")
+    		        .append("<table border='1' cellspacing='0' cellpadding='5' style='border-collapse: collapse; width:100%'>")
+    		        .append("<tr><th style='background-color: #f2f2f2;'>Field</th><th>Details</th></tr>")
+    		        .append("<tr><td>Name</td><td>").append(owner.getFirstName()).append(" ").append(user.getLastName()).append("</td></tr>")
+    		        .append("<tr><td>Email</td><td>").append(owner.getEmail()).append("</td></tr>")
+    		        .append("<tr><td>Contact</td><td>").append(owner.getContact()).append("</td></tr>")
+    		        .append("<tr><td>Date</td><td>").append(appointment.getDate()).append("</td></tr>")
+    		        .append("<tr><td>Slot</td><td>").append(appointment.getTime()).append(" - ").append(appointment.getEndTime()).append("</td></tr>")
+    		        .append("<tr><td>Status</td><td>").append("CANCELLED").append("</td></tr>")
+    		        .append("</table>")
+    		        .append("Sorry for the inconvenience.");
+        	emailService.sendEmail(user.getEmail(),"Appointment Cancelled", msg.toString());
+        }catch(Exception e) {
+        	e.printStackTrace();
+        }
 		return new ApiResponse("Appointment Cancelled Successfully!");
 	}
 
@@ -165,36 +191,32 @@ public class OwnerServices implements OwnerServicesIF {
 	public ApiResponse updateProperty(int owner_id, int propertyId, PropertyRequest propertyRequest) {
 		User owner = userdao.findById(owner_id).orElseThrow(() -> new ResourceNotFoundException("Owner not found"));
 
-		// Fetch the property
+
 		Property existingProperty = propertyDao.findById(propertyId)
 				.orElseThrow(() -> new ResourceNotFoundException("Property not found"));
 
-		// Check if the property belongs to the owner
 		if (existingProperty.getOwner().getUserId() != owner_id) {
 			throw new ResourceNotFoundException("You are not authorized to update this property.");
 		}
 
-		// ✅ Fetch Address Instead of Creating a New One
-		Address existingAddress = existingProperty.getAddress(); // Get the existing address
+		Address existingAddress = existingProperty.getAddress(); 
 
 		if (existingAddress == null) {
 			throw new ResourceNotFoundException("Address not found for this property.");
 		}
 
-		// ✅ Update Address Fields Manually
 		existingAddress.setAddressLine1(propertyRequest.getAddress().getAddressLine1());
 		existingAddress.setAddressLine2(propertyRequest.getAddress().getAddressLine2());
 		existingAddress.setCity(propertyRequest.getAddress().getCity());
 		existingAddress.setState(propertyRequest.getAddress().getState());
 		existingAddress.setPincode(propertyRequest.getAddress().getPincode());
 
-		// ✅ Set the updated address back
+	
 		existingProperty.setAddress(existingAddress);
 
-		// ✅ Update other fields
+		
 		mapper.map(propertyRequest, existingProperty);
 
-		// ✅ Save the updated property
 		propertyDao.save(existingProperty);
 
 		return new ApiResponse("Property Updated Successfully");

@@ -21,12 +21,14 @@ import com.pgmates.dto.ReviewInfo;
 import com.pgmates.dto.ReviewsDto;
 import com.pgmates.dto.UserDto;
 import com.pgmates.dto.UsersBookedAppointmentDto;
+import com.pgmates.emailService.EmailService;
 import com.pgmates.entity.Appointments;
 import com.pgmates.entity.Property;
 import com.pgmates.entity.Reviews;
 import com.pgmates.entity.User;
 import com.pgmates.exceptions.ResourceNotFoundException;
 
+import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 @Service
 @Transactional
@@ -45,6 +47,9 @@ public class UserServices implements UserServicesIF {
 	
 	@Autowired
 	AppointmentsDao appointment_dao;
+	
+	@Autowired
+	EmailService emailService;
 	
 
 	@Override
@@ -144,6 +149,47 @@ public class UserServices implements UserServicesIF {
 		Appointments appointment = appointmentopt.get();
 		appointment.setBooked(true);
 		appointment.setUser(user);
+		
+//		send email confirmation
+		User owner = appointment.getOwner();
+		StringBuilder ownermsg = new StringBuilder();
+		ownermsg.append("<p>Hello ").append(owner.getFirstName()).append(",</p>")
+		        .append("<p>").append(user.getFirstName()).append(" has booked an appointment with you.</p>")
+		        .append("<strong>Details</strong><br>")
+		        .append("<table border='1' cellspacing='0' cellpadding='5' style='border-collapse: collapse;width: 100%;'>")
+		        .append("<tr><th style='background-color: #f2f2f2;'>Field</th><th>Details</th></tr>")
+		        .append("<tr><td>Name</td><td>").append(user.getFirstName()).append(" ").append(user.getLastName()).append("</td></tr>")
+		        .append("<tr><td>Email</td><td>").append(user.getEmail()).append("</td></tr>")
+		        .append("<tr><td>Contact</td><td>").append(user.getContact()).append("</td></tr>")
+		        .append("<tr><td>Date</td><td>").append(appointment.getDate()).append("</td></tr>")
+		        .append("<tr><td>Slot</td><td>").append(appointment.getTime()).append(" - ").append(appointment.getEndTime()).append("</td></tr>")
+		        .append("<tr><td>Status</td><td>").append("CONFIRMED").append("</td></tr>")
+		        .append("</table>")
+		        .append("Thanks");
+		
+		StringBuilder usermsg = new StringBuilder();
+		usermsg.append("<p>Hello ").append(user.getFirstName()).append(",</p>")
+		       .append("<p>Your appointment has been booked.</p>")
+		       .append("<strong>Details</strong><br>")
+		       .append("<table border='1' cellspacing='0' cellpadding='5' style='border-collapse: collapse; width: 100%;'>")
+		       .append("<tr><th style='background-color: #f2f2f2; text-align: left;'>Field</th><th style='text-align: left;'>Details</th></tr>")
+		       .append("<tr><td>Name</td><td>").append(owner.getFirstName()).append(" ").append(owner.getLastName()).append("</td></tr>")
+		       .append("<tr><td>Email</td><td>").append(owner.getEmail()).append("</td></tr>")
+		       .append("<tr><td>Contact</td><td>").append(owner.getContact()).append("</td></tr>")
+		       .append("<tr><td>Date</td><td>").append(appointment.getDate()).append("</td></tr>")
+		       .append("<tr><td>Slot</td><td>").append(appointment.getTime()).append(" - ").append(appointment.getEndTime()).append("</td></tr>")
+		       .append("<tr><td>Status</td><td>").append("CONFIRMED").append("</td></tr>")
+		       .append("</table>")
+		       .append("<br><p>Regards,<br>PgMates</p>");
+		try {
+			emailService.sendEmail(owner.getEmail(),"Appointment Booked 📝",ownermsg.toString());
+			emailService.sendEmail(user.getEmail(),"Appointment Booked 📝",usermsg.toString());
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		return new ApiResponse("Appointment booked successfully");
 	}
 
@@ -158,8 +204,29 @@ public class UserServices implements UserServicesIF {
 	        }
 	        
 	        appointment.setBooked(false);
+	        User user = appointment.getUser();
 	        appointment.setUser(null);
+	        
+	        User owner = appointment.getOwner();
 	        appointment_dao.save(appointment);
+	        try {
+	        	StringBuilder msg = new StringBuilder();
+	        	msg = msg.append("<p>Hello ").append(owner.getFirstName()).append(",</p>")
+	    		        .append("<p>Your appointment with ").append(user.getFirstName()).append(" stands CANCELLED")
+	    		        .append("<strong>Details</strong><br>")
+	    		        .append("<table border='1' cellspacing='0' cellpadding='5' style='border-collapse: collapse; width:100%'>")
+	    		        .append("<tr><th style='background-color: #f2f2f2;'>Field</th><th>Details</th></tr>")
+	    		        .append("<tr><td>Name</td><td>").append(user.getFirstName()).append(" ").append(user.getLastName()).append("</td></tr>")
+	    		        .append("<tr><td>Email</td><td>").append(user.getEmail()).append("</td></tr>")
+	    		        .append("<tr><td>Contact</td><td>").append(user.getContact()).append("</td></tr>")
+	    		        .append("<tr><td>Date</td><td>").append(appointment.getDate()).append("</td></tr>")
+	    		        .append("<tr><td>Slot</td><td>").append(appointment.getTime()).append(" - ").append(appointment.getEndTime()).append("</td></tr>")
+	    		        .append("<tr><td>Status</td><td>").append("CANCELLED").append("</td></tr>")
+	    		        .append("</table>");
+	        	emailService.sendEmail(owner.getEmail(),"Appointment Cancelled", msg.toString());
+	        }catch(Exception e) {
+	        	e.printStackTrace();
+	        }
 	        
 	        return new ApiResponse("Appointment Cancelled Successfully!");
 	    }

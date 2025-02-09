@@ -1,0 +1,5 @@
+package com.pgmates.emailService;
+
+public class EmailService {
+
+}

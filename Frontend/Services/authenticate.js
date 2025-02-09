@@ -17,13 +17,13 @@ export function verify(email,password) {
 
 export async function registerUser(userData){
     try{
-        const userRole = userData.role === "user"?"ROLE_USER":"ROLE_OWNER";
-        const userGender = userData.gender === "male"?"MALE":"FEMALE";
+        // const userRole = userData.role === "user"?"ROLE_USER":"ROLE_OWNER";
+        // const userGender = userData.gender === "MALE"?"MALE":"FEMALE";
         var requestBody={
             firstName : userData.firstName,
             lastName : userData.lastName,
-            role : userRole,
-            gender : userGender,
+            role : userData.role,
+            gender : userData.gender,
             contact : userData.contact,
             email : userData.email,
             password : userData.password
