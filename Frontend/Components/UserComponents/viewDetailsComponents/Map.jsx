@@ -5,6 +5,7 @@ export function Map() {
     <div className="mapbody">
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3597.1232432177635!2d85.10174217279234!3d25.634034864013568!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed577e021a41ff%3A0x619f6dd3ed125a3d!2sP%26M%20Mall!5e0!3m2!1sen!2sin!4v1732296604538!5m2!1sen!2sin"
+        // src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD-bekPg2yBBtSYJ6Lu5x6pWwjVarsRmPA&q=Eiffel+Tower,Paris+France"
         allowfullscreen=""
         aria-hidden="false"
         tabindex="0"
